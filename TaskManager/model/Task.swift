@@ -6,7 +6,10 @@
 //  Copyright © 2019 Saritasa inc. All rights reserved.
 //
 
+
 import Foundation
+
+///Task class described a task element: it's name, description and due date.
 open class Task: Codable{
     
     var name: String
@@ -17,10 +20,6 @@ open class Task: Codable{
         self.name = name
         self.desc = desc
         self.dueDate = dueDate
-    }
-    
-    public func toString(){
-        
     }
     
 }

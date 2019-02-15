@@ -17,6 +17,8 @@
 		CE4D2617220D23910078D2F2 /* TaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D2616220D23910078D2F2 /* TaskManagerTests.swift */; };
 		CE4D2622220D23910078D2F2 /* TaskManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D2621220D23910078D2F2 /* TaskManagerUITests.swift */; };
 		CE4D2630220D25630078D2F2 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D262F220D25630078D2F2 /* Task.swift */; };
+		CE633270221508720015A6BA /* CreateTaskAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63326F221508720015A6BA /* CreateTaskAlertView.swift */; };
+		CE63327222150D9A0015A6BA /* CreateTaskAlertViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63327122150D9A0015A6BA /* CreateTaskAlertViewDelegate.swift */; };
 		CED41552220D50A300BB140E /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED41551220D50A300BB140E /* TaskTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +56,8 @@
 		CE4D2621220D23910078D2F2 /* TaskManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagerUITests.swift; sourceTree = "<group>"; };
 		CE4D2623220D23910078D2F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE4D262F220D25630078D2F2 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		CE63326F221508720015A6BA /* CreateTaskAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskAlertView.swift; sourceTree = "<group>"; };
+		CE63327122150D9A0015A6BA /* CreateTaskAlertViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskAlertViewDelegate.swift; sourceTree = "<group>"; };
 		CED41551220D50A300BB140E /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,15 +109,15 @@
 		CE4D25FD220D238F0078D2F2 /* TaskManager */ = {
 			isa = PBXGroup;
 			children = (
+				CEE3CE9622165E4400C62E86 /* controller */,
+				CEE3CE9522165E3800C62E86 /* view */,
+				CEE3CE9422165E1E00C62E86 /* model */,
 				CE4D25FE220D238F0078D2F2 /* AppDelegate.swift */,
-				CE4D2600220D238F0078D2F2 /* ViewController.swift */,
 				CE4D2602220D238F0078D2F2 /* Main.storyboard */,
 				CE4D2608220D23910078D2F2 /* Assets.xcassets */,
 				CE4D260A220D23910078D2F2 /* LaunchScreen.storyboard */,
 				CE4D260D220D23910078D2F2 /* Info.plist */,
 				CE4D2605220D238F0078D2F2 /* TaskManager.xcdatamodeld */,
-				CE4D262F220D25630078D2F2 /* Task.swift */,
-				CED41551220D50A300BB140E /* TaskTableViewCell.swift */,
 				CE21B680220EB905002F305C /* data.plist */,
 			);
 			path = TaskManager;
@@ -135,6 +139,32 @@
 				CE4D2623220D23910078D2F2 /* Info.plist */,
 			);
 			path = TaskManagerUITests;
+			sourceTree = "<group>";
+		};
+		CEE3CE9422165E1E00C62E86 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				CE4D262F220D25630078D2F2 /* Task.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		CEE3CE9522165E3800C62E86 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				CED41551220D50A300BB140E /* TaskTableViewCell.swift */,
+				CE63326F221508720015A6BA /* CreateTaskAlertView.swift */,
+				CE63327122150D9A0015A6BA /* CreateTaskAlertViewDelegate.swift */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		CEE3CE9622165E4400C62E86 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				CE4D2600220D238F0078D2F2 /* ViewController.swift */,
+			);
+			path = controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -269,7 +299,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE633270221508720015A6BA /* CreateTaskAlertView.swift in Sources */,
 				CE4D2630220D25630078D2F2 /* Task.swift in Sources */,
+				CE63327222150D9A0015A6BA /* CreateTaskAlertViewDelegate.swift in Sources */,
 				CE4D2607220D238F0078D2F2 /* TaskManager.xcdatamodeld in Sources */,
 				CED41552220D50A300BB140E /* TaskTableViewCell.swift in Sources */,
 				CE4D2601220D238F0078D2F2 /* ViewController.swift in Sources */,

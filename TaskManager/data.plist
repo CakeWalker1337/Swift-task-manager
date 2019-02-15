@@ -1,22 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<array>
-	<dict>
-		<key>name</key>
-		<string>namename</string>
-		<key>desc</key>
-		<string>descdesc</string>
-		<key>dueDate</key>
-		<date>2019-02-09T09:43:00Z</date>
-	</dict>
-	<dict>
-		<key>name</key>
-		<string>namename2</string>
-		<key>desc</key>
-		<string>descdesc2</string>
-		<key>dueDate</key>
-		<date>2019-02-01T09:43:00Z</date>
-	</dict>
-</array>
+<array/>
 </plist>
