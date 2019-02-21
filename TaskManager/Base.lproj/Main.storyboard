@@ -23,7 +23,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskTableViewCell" rowHeight="108" id="CGg-jx-guc" customClass="TaskTableViewCell" customModule="TaskManager" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskTableViewCell" rowHeight="108" id="CGg-jx-guc" customClass="TaskTableViewCell" customModule="TaskManager" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="382" height="108"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CGg-jx-guc" id="EhK-78-Rtc">
@@ -73,7 +73,7 @@
                                 <rect key="frame" x="20" y="832" width="374" height="30"/>
                                 <state key="normal" title="Create task"/>
                                 <connections>
-                                    <action selector="createTaskButton_click:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zrM-1c-iFf"/>
+                                    <action selector="createTaskButtonDidClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="T04-8S-R5A"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -98,10 +98,10 @@
             </objects>
             <point key="canvasLocation" x="129.91071428571428" y="128.98550724637681"/>
         </scene>
-        <!--Create Task Alert View-->
+        <!--Create Task Alert View Controller-->
         <scene sceneID="ZdX-CU-7tB">
             <objects>
-                <viewController storyboardIdentifier="CreateAlertView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gV2-vx-jJc" customClass="CreateTaskAlertView" customModule="TaskManager" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateAlertView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gV2-vx-jJc" customClass="CreateTaskAlertViewController" customModule="TaskManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dMl-hN-geh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -126,7 +126,7 @@
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <state key="normal" title="Cancel"/>
                                         <connections>
-                                            <action selector="onClickCancelButton:" destination="gV2-vx-jJc" eventType="touchUpInside" id="Ajt-DU-kKS"/>
+                                            <action selector="cancelButtonDidClick:" destination="gV2-vx-jJc" eventType="touchUpInside" id="f0G-h6-A8d"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z9I-Vo-6wQ">
@@ -134,7 +134,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="Create"/>
                                         <connections>
-                                            <action selector="onClickCreateButton:" destination="gV2-vx-jJc" eventType="touchUpInside" id="s6o-vO-Ca1"/>
+                                            <action selector="createButtonDidClick:" destination="gV2-vx-jJc" eventType="touchUpInside" id="Ai4-g3-XyC"/>
                                         </connections>
                                     </button>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e3O-kU-SCC">

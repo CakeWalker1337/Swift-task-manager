@@ -11,9 +11,18 @@ import UIKit
 class TaskTableViewCell: UITableViewCell {
 
     
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var descLabel: UILabel!
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet private weak var dateLabel: UILabel!
+    
+    var task: Task?{
+        didSet{
+            dateLabel.text = "Due to \(task?.dueDate.description ?? "unknown")"
+            descLabel.text = task?.desc
+            titleLabel.text = task?.name
+        }
+    }
+    
+    @IBOutlet private weak var descLabel: UILabel!
+    @IBOutlet private weak var titleLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

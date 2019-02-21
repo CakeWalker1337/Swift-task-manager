@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var taskTableView: UITableView!
+    @IBOutlet private weak var taskTableView: UITableView!
     let taskCellIdentifier = "TaskTableViewCell"
     var data: [Task] = []
 
@@ -18,7 +18,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 //        saveDataToPlist()
 //        data.removeAll()
-        data = loadDataFromPlist();
+        data = loadDataFromPlist()
         
         taskTableView.dataSource = self
         
@@ -26,8 +26,8 @@ class ViewController: UIViewController {
     }
 
     /// Workable function for loading data from data.plist
-    func loadDataFromPlist() -> [Task]{
-        if  let path = Bundle.main.path(forResource: "data", ofType: "plist"),
+    private func loadDataFromPlist() -> [Task] {
+        if let path = Bundle.main.path(forResource: "data", ofType: "plist"),
             let xml = FileManager.default.contents(atPath: path),
             let tasks = try? PropertyListDecoder().decode([Task].self, from: xml)
         {
@@ -38,7 +38,7 @@ class ViewController: UIViewController {
     }
     
     /// Workable function for writing data to data.plist
-    func saveDataToPlist(){
+    private func saveDataToPlist() {
         do {
             let path = Bundle.main.path(forResource: "data", ofType: "plist")
             let plistEncoder = PropertyListEncoder()
@@ -48,17 +48,15 @@ class ViewController: UIViewController {
             print(path!)
             try plistData.write(to: NSURL.fileURL(withPath: path!))
             print("Complete!")
-        }
-        catch
-        {
+        } catch {
             print(error)
         }
     
     }
     
     /// CreateTaskButton event callback method
-    @IBAction func createTaskButton_click(_ sender: Any) {
-        let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "CreateAlertView") as! CreateTaskAlertView
+    @IBAction private func createTaskButtonDidClick(_ sender: Any) {
+        let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "CreateAlertView") as! CreateTaskAlertViewController
         customAlert.providesPresentationContextTransitionStyle = true
         customAlert.definesPresentationContext = true
         customAlert.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
@@ -68,7 +66,7 @@ class ViewController: UIViewController {
     }
     
 }
-///Implementation of UITableViewDataSource
+// MARK: - UITableViewDataSource
 extension ViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -78,21 +76,19 @@ extension ViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: taskCellIdentifier, for: indexPath) as! TaskTableViewCell
         print("Creating cell")
-        cell.titleLabel?.text = data[indexPath.row].name
-        cell.descLabel?.text = data[indexPath.row].desc
-        cell.dateLabel?.text = "Due to \(data[indexPath.row].dueDate.description)"
+        cell.task = data[indexPath.row]
         return cell
     }
     
 }
 /// Implementation of the delegate for createTaskAlertView callback methods.
-extension ViewController: CreateTaskAlertViewDelegate{
+extension ViewController: CreateTaskAlertViewControllerDelegate{
     
-    func cancelButtonClicked() {
+    func createTaskAlertViewControllerDidClickCancel(_ controller: CreateTaskAlertViewController) {
         print("Canceled")
     }
     
-    func createButtonClicked(task: Task) {
+    func createTaskAlertViewControllerDidClickCreateTask(_ controller: CreateTaskAlertViewController, didCreate task: Task) {
         data.append(task)
         self.taskTableView.reloadData()
         saveDataToPlist()
