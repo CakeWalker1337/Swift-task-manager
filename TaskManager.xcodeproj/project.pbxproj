@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CE21B681220EB905002F305C /* data.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE21B680220EB905002F305C /* data.plist */; };
+		CE428D41221FC6110092BC32 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE428D40221FC6110092BC32 /* DateHelper.swift */; };
 		CE4D25FF220D238F0078D2F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D25FE220D238F0078D2F2 /* AppDelegate.swift */; };
 		CE4D2601220D238F0078D2F2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D2600220D238F0078D2F2 /* ViewController.swift */; };
 		CE4D2604220D238F0078D2F2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE4D2602220D238F0078D2F2 /* Main.storyboard */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		CE21B680220EB905002F305C /* data.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = data.plist; sourceTree = "<group>"; };
+		CE428D40221FC6110092BC32 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		CE4D25FB220D238F0078D2F2 /* TaskManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4D25FE220D238F0078D2F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE4D2600220D238F0078D2F2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -84,6 +86,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE428D3F221FC5F40092BC32 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				CE428D40221FC6110092BC32 /* DateHelper.swift */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
 		CE4D25F2220D238F0078D2F2 = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +117,7 @@
 		CE4D25FD220D238F0078D2F2 /* TaskManager */ = {
 			isa = PBXGroup;
 			children = (
+				CE428D3F221FC5F40092BC32 /* utils */,
 				CEE3CE9622165E4400C62E86 /* controller */,
 				CEE3CE9522165E3800C62E86 /* view */,
 				CEE3CE9422165E1E00C62E86 /* model */,
@@ -301,6 +312,7 @@
 				CE4D2607220D238F0078D2F2 /* TaskManager.xcdatamodeld in Sources */,
 				CED41552220D50A300BB140E /* TaskTableViewCell.swift in Sources */,
 				CE4D2601220D238F0078D2F2 /* ViewController.swift in Sources */,
+				CE428D41221FC6110092BC32 /* DateHelper.swift in Sources */,
 				CE4D25FF220D238F0078D2F2 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -28,6 +28,7 @@ class CreateTaskAlertViewController: UIViewController {
         nameTextField.returnKeyType = .next
         descriptionTextField.returnKeyType = .done
         
+        
         nameTextField.delegate = self
         descriptionTextField.delegate = self
     }
@@ -69,7 +70,7 @@ class CreateTaskAlertViewController: UIViewController {
     /// CreateButton click event callback
     @IBAction func createButtonDidClick(_ sender: Any) {
         nameTextField.resignFirstResponder()
-        delegate?.createTaskAlertViewControllerDidClickCreateTask(self, didCreate: Task(name: nameTextField.text!, desc: descriptionTextField.text!, dueDate: dueDatePicker.date))
+        delegate!.createTaskAlertViewControllerDidClickCreateTask(self, didCreate: Task(name: (nameTextField.text ?? ""), desc: (descriptionTextField.text ?? ""), dueDate: dueDatePicker.date))
         self.dismiss(animated: true, completion: nil)
     }
     

@@ -10,7 +10,7 @@
 import Foundation
 
 ///Task class described a task element: it's name, description and due date.
-open class Task: Codable{
+struct Task: Codable{
     
     var name: String
     var desc: String
