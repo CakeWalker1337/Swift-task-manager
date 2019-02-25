@@ -110,7 +110,7 @@ extension ViewController: UITableViewDelegate {
             success(true)
         })
         deleteAction.backgroundColor = .red
-        return UISwipeActionsConfiguration(actions: [editAction, deleteAction])
+        return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
     }
     
 }
