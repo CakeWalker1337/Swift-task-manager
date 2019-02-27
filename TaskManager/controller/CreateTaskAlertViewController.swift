@@ -70,7 +70,7 @@ class CreateTaskAlertViewController: UIViewController {
     /// CreateButton click event callback
     @IBAction func createButtonDidClick(_ sender: Any) {
         nameTextField.resignFirstResponder()
-        delegate!.createTaskAlertViewControllerDidClickCreateTask(self, didCreate: Task(name: (nameTextField.text ?? ""), desc: (descriptionTextField.text ?? ""), dueDate: dueDatePicker.date))
+        delegate!.createTaskAlertViewControllerDidClickCreateTask(self, title: (nameTextField.text ?? ""), desc: (descriptionTextField.text ?? ""), dueDate: dueDatePicker.date)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -93,6 +93,6 @@ protocol CreateTaskAlertViewControllerDelegate: class {
     
     /// Callback-method for "create button clicked" event.
     /// - Parameter task: Task object created within data from alertdialog fields.
-    func createTaskAlertViewControllerDidClickCreateTask(_ controller: CreateTaskAlertViewController, didCreate task: Task)
+    func createTaskAlertViewControllerDidClickCreateTask(_ controller: CreateTaskAlertViewController, title: String, desc: String, dueDate: Date)
     
 }

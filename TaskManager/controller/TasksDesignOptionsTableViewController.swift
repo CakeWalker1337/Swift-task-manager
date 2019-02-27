@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NoticesDesignOptionsTableViewController: UITableViewController {
+class TasksDesignOptionsTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 

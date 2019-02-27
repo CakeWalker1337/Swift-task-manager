@@ -36,7 +36,7 @@ class SettingsTableViewController: UITableViewController {
         }
         cell!.textLabel?.text = self.settingNames[indexPath.row]
         cell!.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
-        let currentNoticeDesign = UserDefaults.standard.object(forKey: "NoticeDesignOption")
+        let currentNoticeDesign = UserDefaults.standard.object(forKey: "TasksDesignOptionValue")
         let detailLabel = cell?.detailTextLabel
         detailLabel?.text = currentNoticeDesign as? String
         detailLabel?.textColor = UIColor.lightGray
@@ -44,9 +44,8 @@ class SettingsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Number of row is \(indexPath.row)")
         if indexPath.row == 0 {
-            let controller = self.storyboard?.instantiateViewController(withIdentifier: "NoticesDesignOptionsTableViewController") as! NoticesDesignOptionsTableViewController
+            let controller = self.storyboard?.instantiateViewController(withIdentifier: "NoticesDesignOptionsTableViewController") as! TasksDesignOptionsTableViewController
             controller.optionsDelegate = self
             self.navigationController?.pushViewController(controller, animated: true)
         }
@@ -60,7 +59,7 @@ class SettingsTableViewController: UITableViewController {
 extension SettingsTableViewController: NoticesDesignOptionsTableViewDelegate {
     func onPushingResult(indexPath: IndexPath) {
         let chosenOption = NoticesDesignOptions.allCases[indexPath.row].rawValue
-        UserDefaults.standard.set(chosenOption, forKey: "NoticeDesignOption")
+        UserDefaults.standard.set(chosenOption, forKey: "TasksDesignOptionValue")
         settingsTableView.cellForRow(at: IndexPath(row: 0, section: 0))?.detailTextLabel?.text = chosenOption
     }
 }
