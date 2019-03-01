@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum NoticesDesignOptions : String, CaseIterable {
+public enum DashboardDesignOptions : String, CaseIterable {
     case Table = "Table"
     case Cards = "Cards"
 }

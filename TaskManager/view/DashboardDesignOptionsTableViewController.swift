@@ -8,13 +8,13 @@
 
 import UIKit
 
-class TasksDesignOptionsTableViewController: UITableViewController {
+class DashboardDesignOptionsTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
     @IBOutlet var optionsTableView: UITableView!
     private let optionsCellsIdentifier = "NoticeOptionsDesignTableViewCell"
-    var optionsDelegate: NoticesDesignOptionsTableViewDelegate?
+    var optionsDelegate: DashboardDesignOptionsTableViewDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,13 +23,13 @@ class TasksDesignOptionsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return NoticesDesignOptions.allCases.count
+        return DashboardDesignOptions.allCases.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.optionsCellsIdentifier, for: indexPath)
         print("Creating settings cell")
-        cell.textLabel?.text = NoticesDesignOptions.allCases[indexPath.row].rawValue
+        cell.textLabel?.text = DashboardDesignOptions.allCases[indexPath.row].rawValue
         return cell
     }
     
@@ -40,6 +40,6 @@ class TasksDesignOptionsTableViewController: UITableViewController {
 
 }
 
-protocol NoticesDesignOptionsTableViewDelegate {
+protocol DashboardDesignOptionsTableViewDelegate {
     func onPushingResult(indexPath: IndexPath)
 }

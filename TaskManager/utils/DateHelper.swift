@@ -12,6 +12,7 @@ class DateHelper {
     
     static let SecondsInYear = 31536000
     static let SecondsInMonth = 2592000
+    static let SecondsInWeek = 604800
     static let SecondsInDay = 86400
     static let SecondsInHour = 3600
     static let SecondsInMinute = 60

@@ -1,25 +1,17 @@
-//
-//  Task.swift
-//  TaskManager
-//
-//  Created by User on 08/02/2019.
-//  Copyright © 2019 Saritasa inc. All rights reserved.
-//
 
+import Foundation
+import UIKit.UIColor
 
-//import Foundation
-//
-/////Task class described a task element: it's name, description and due date.
-//struct Task: Codable{
-//    
-//    var name: String
-//    var desc: String
-//    var dueDate: Date
-//    
-//    public init(name: String, desc: String, dueDate: Date){
-//        self.name = name
-//        self.desc = desc
-//        self.dueDate = dueDate
-//    }
-//    
-//}
+///Task class described a task element: it's name, description and due date.
+struct Task {
+    
+    var title: String
+    var desc: String
+    var dueDate: Date
+    
+    public init(title: String, desc: String, dueDate: Date){
+        self.title = title
+        self.desc = desc
+        self.dueDate = dueDate
+    }
+}

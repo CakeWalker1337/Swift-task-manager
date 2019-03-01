@@ -10,12 +10,12 @@ import UIKit
 
 class TaskCardViewCell: UICollectionViewCell {
     
-    
+    @IBOutlet weak var cardView: CardView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     
-    var task: Task?{
+    var task: TaskEntity?{
         didSet{
             var seconds = Int(task?.dueDate?.timeIntervalSince(Date()) ?? 0)
             if abs(seconds) / DateHelper.SecondsInMinute > 0 {
@@ -26,7 +26,20 @@ class TaskCardViewCell: UICollectionViewCell {
                 } else {
                     postScript.append("ago")
                 }
+                
+                if seconds > DateHelper.SecondsInWeek {
+                    cardView.backgroundColor = UIColor(hue: 130.0/365.0, saturation: 0.4, brightness: 1.0, alpha: 1.0)
+                } else if seconds < 0 {
+                    cardView.backgroundColor = UIColor.gray
+                } else {
+                    cardView.backgroundColor = UIColor(hue: CGFloat( Double(seconds) * (130.0/365.0) / Double(DateHelper.SecondsInWeek)),
+                                                       saturation: 0.4,
+                                                       brightness: 1.0,
+                                                       alpha: 1.0)
+                }
+                
                 seconds = abs(seconds)
+
                 if seconds / DateHelper.SecondsInYear > 0 {
                     resultString.append("\(seconds / DateHelper.SecondsInYear)Y ")
                     seconds %= DateHelper.SecondsInYear
@@ -50,9 +63,11 @@ class TaskCardViewCell: UICollectionViewCell {
                 dateLabel.text = resultString + postScript
             } else {
                 dateLabel.text = "now"
+                cardView.backgroundColor = UIColor(hue: 0, saturation: 0.4, brightness: 1.0, alpha: 1.0)
             }
             descriptionLabel.text = task?.desc
             titleLabel.text = task?.title
+            
         }
     }
     
@@ -64,9 +79,11 @@ class TaskCardViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
         self.titleLabel?.text = nil
         self.descriptionLabel?.text = nil
         self.dateLabel?.text = nil
     }
+
 }
+
+

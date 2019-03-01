@@ -45,7 +45,7 @@ class SettingsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            let controller = self.storyboard?.instantiateViewController(withIdentifier: "NoticesDesignOptionsTableViewController") as! TasksDesignOptionsTableViewController
+            let controller = self.storyboard?.instantiateViewController(withIdentifier: "NoticesDesignOptionsTableViewController") as! DashboardDesignOptionsTableViewController
             controller.optionsDelegate = self
             self.navigationController?.pushViewController(controller, animated: true)
         }
@@ -56,9 +56,9 @@ class SettingsTableViewController: UITableViewController {
     }
 
 }
-extension SettingsTableViewController: NoticesDesignOptionsTableViewDelegate {
+extension SettingsTableViewController: DashboardDesignOptionsTableViewDelegate {
     func onPushingResult(indexPath: IndexPath) {
-        let chosenOption = NoticesDesignOptions.allCases[indexPath.row].rawValue
+        let chosenOption = DashboardDesignOptions.allCases[indexPath.row].rawValue
         UserDefaults.standard.set(chosenOption, forKey: "TasksDesignOptionValue")
         settingsTableView.cellForRow(at: IndexPath(row: 0, section: 0))?.detailTextLabel?.text = chosenOption
     }
