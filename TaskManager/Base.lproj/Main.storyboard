@@ -56,8 +56,16 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6gP-Cf-eQ8" customClass="CardView" customModule="TaskManager" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="4" width="398" height="100"/>
                                                     <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="download.png" translatesAutoresizingMaskIntoConstraints="NO" id="6bx-p3-kD8">
+                                                            <rect key="frame" x="370" y="8" width="20" height="20"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="20" id="hgf-rt-2iK"/>
+                                                                <constraint firstAttribute="height" constant="20" id="y4f-8J-I9D"/>
+                                                            </constraints>
+                                                            <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                                                        </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wBL-UN-aUr" userLabel="Title Label">
-                                                            <rect key="frame" x="8" y="8" width="382" height="20"/>
+                                                            <rect key="frame" x="8" y="8" width="354" height="20"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -77,16 +85,19 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="trailing" secondItem="wBL-UN-aUr" secondAttribute="trailing" constant="8" id="1HS-el-ZH4"/>
                                                         <constraint firstAttribute="trailing" secondItem="hyS-OQ-bK2" secondAttribute="trailing" constant="8" id="4iR-k3-g0P"/>
+                                                        <constraint firstItem="aAU-ti-4TU" firstAttribute="top" secondItem="6bx-p3-kD8" secondAttribute="bottom" constant="8" id="6uq-eG-BLd"/>
+                                                        <constraint firstItem="6bx-p3-kD8" firstAttribute="top" secondItem="6gP-Cf-eQ8" secondAttribute="top" constant="8" id="KA8-Zf-Iwr"/>
+                                                        <constraint firstItem="aAU-ti-4TU" firstAttribute="top" secondItem="wBL-UN-aUr" secondAttribute="bottom" constant="8" id="MQK-dY-0B7"/>
+                                                        <constraint firstItem="wBL-UN-aUr" firstAttribute="top" secondItem="6gP-Cf-eQ8" secondAttribute="top" constant="8" id="RoK-2H-YPY"/>
                                                         <constraint firstAttribute="trailing" secondItem="aAU-ti-4TU" secondAttribute="trailing" constant="8" id="Tki-eu-571"/>
-                                                        <constraint firstItem="aAU-ti-4TU" firstAttribute="top" secondItem="wBL-UN-aUr" secondAttribute="bottom" constant="8" id="YUy-JM-yQv"/>
+                                                        <constraint firstItem="wBL-UN-aUr" firstAttribute="leading" secondItem="6gP-Cf-eQ8" secondAttribute="leading" constant="8" id="bru-tG-1Nn"/>
                                                         <constraint firstItem="hyS-OQ-bK2" firstAttribute="top" relation="greaterThanOrEqual" secondItem="aAU-ti-4TU" secondAttribute="bottom" constant="12" id="c9B-sH-m6E"/>
                                                         <constraint firstItem="hyS-OQ-bK2" firstAttribute="leading" relation="lessThanOrEqual" secondItem="6gP-Cf-eQ8" secondAttribute="leading" constant="363" id="fs2-3c-l1g"/>
+                                                        <constraint firstAttribute="trailing" secondItem="6bx-p3-kD8" secondAttribute="trailing" constant="8" id="j4V-Vp-7hR"/>
                                                         <constraint firstItem="aAU-ti-4TU" firstAttribute="leading" secondItem="6gP-Cf-eQ8" secondAttribute="leading" constant="8" id="j8t-mY-x1j"/>
                                                         <constraint firstAttribute="bottom" secondItem="hyS-OQ-bK2" secondAttribute="bottom" constant="8" id="lut-hS-sTc"/>
-                                                        <constraint firstItem="wBL-UN-aUr" firstAttribute="top" secondItem="6gP-Cf-eQ8" secondAttribute="top" constant="8" id="njx-nH-5SF"/>
-                                                        <constraint firstItem="wBL-UN-aUr" firstAttribute="leading" secondItem="6gP-Cf-eQ8" secondAttribute="leading" constant="8" id="r0B-Y6-BoN"/>
+                                                        <constraint firstItem="6bx-p3-kD8" firstAttribute="leading" secondItem="wBL-UN-aUr" secondAttribute="trailing" constant="8" id="vMk-6T-SsQ"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -100,13 +111,13 @@
                                         <connections>
                                             <outlet property="cardView" destination="6gP-Cf-eQ8" id="635-cq-sJp"/>
                                             <outlet property="dateLabel" destination="hyS-OQ-bK2" id="PoN-R1-c1B"/>
-                                            <outlet property="descriptionLabel" destination="aAU-ti-4TU" id="a0H-8T-P1i"/>
+                                            <outlet property="descLabel" destination="aAU-ti-4TU" id="a0H-8T-P1i"/>
                                             <outlet property="titleLabel" destination="wBL-UN-aUr" id="0rW-9o-NXX"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sf5-zZ-c2m">
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sf5-zZ-c2m">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -210,7 +221,7 @@
         <!--NavTitle-->
         <scene sceneID="cH8-ex-gYx">
             <objects>
-                <viewController restorationIdentifier="TaskViewController" storyboardIdentifier="TaskViewController" id="d11-IJ-Xvd" customClass="TaskInfoViewController" customModule="TaskManager" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="TaskInfoViewController" storyboardIdentifier="TaskInfoViewController" id="d11-IJ-Xvd" customClass="TaskInfoViewController" customModule="TaskManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1hP-WE-glk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -347,7 +358,7 @@
         <!--Dashboard Design Options Table View Controller-->
         <scene sceneID="2qm-pt-26m">
             <objects>
-                <tableViewController storyboardIdentifier="NoticesDesignOptionsTableViewController" id="QTj-nt-HvC" customClass="DashboardDesignOptionsTableViewController" customModule="TaskManager" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="DashboardDesignOptionsTableViewController" id="QTj-nt-HvC" customClass="DashboardDesignOptionsTableViewController" customModule="TaskManager" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="w21-vA-QGb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -377,4 +388,7 @@
             <point key="canvasLocation" x="2358" y="-238"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="download.png" width="225" height="225"/>
+    </resources>
 </document>

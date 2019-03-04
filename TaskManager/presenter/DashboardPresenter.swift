@@ -10,7 +10,11 @@ import Foundation
 import UIKit.UIColor
 
 protocol DashboardPresenterDelegate {
-    func fetchTasksFromDB() -> [Task]
+    func fetchTasks() -> [Task]
+    func insertTask(task: Task) -> Task
+    func updateTask(task: Task)
+    func sortTasks(tasks: inout [Task])
+    func deleteTask(task: Task)
     
     func getCellColorByDueDate(dueDate: Date) -> UIColor
     
@@ -29,50 +33,55 @@ class DashboardPresenter {
 }
 
 extension DashboardPresenter: DashboardPresenterDelegate {
-    func fetchTasksFromDB() -> [Task] {
-        let tasks = dashboardRepository!.fetchTasksFromDB().map({DashboardTaskMapper.mapTaskFromEntity(entity: $0)})
+    func fetchTasks() -> [Task] {
+        var tasks = dashboardRepository!.fetchTasks().map({DashboardTaskMapper.mapTaskFromEntity(entity: $0)})
+        sortTasks(tasks: &tasks)
         return tasks
     }
     
-    func formatDueDateString(dueDate: Date) -> String {
+    func sortTasks(tasks: inout [Task]) {
+        tasks.sort(by: {(task1: Task, task2: Task) -> Bool in
+            let now = Date()
+            //red task is a task which due date has gone
+            let isTask1Red = task1.dueDate.compare(now) == .orderedAscending
+            let isTask2Red = task2.dueDate.compare(now) == .orderedAscending
+            // effective state checking
+            if isTask1Red && isTask2Red {
+                return task1.dueDate.compare(task2.dueDate) == .orderedDescending
+            }
+            else if !isTask1Red && !isTask2Red {
+                return task1.dueDate.compare(task2.dueDate) == .orderedAscending
+            }
+            return !isTask1Red
+        })
+    }
+    
+    func insertTask(task: Task) -> Task {
         
-        var seconds = Int(dueDate.timeIntervalSince(Date()))
-        if abs(seconds) / DateHelper.SecondsInMinute > 0 {
-            var resultDateString: String = ""
-            var postScript: String = ""
-            
-            if seconds > 0 {
-                postScript.append("left")
-            } else {
-                postScript.append("ago")
-            }
-            
-            seconds = abs(seconds)
-            
-            if seconds / DateHelper.SecondsInYear > 0 {
-                resultDateString.append("\(seconds / DateHelper.SecondsInYear)Y ")
-                seconds %= DateHelper.SecondsInYear
-            }
-            if seconds / DateHelper.SecondsInMonth > 0 {
-                resultDateString.append("\(seconds / DateHelper.SecondsInMonth)M ")
-                seconds %= DateHelper.SecondsInMonth
-            }
-            if seconds / DateHelper.SecondsInDay > 0 {
-                resultDateString.append("\(seconds / DateHelper.SecondsInDay)d ")
-                seconds %= DateHelper.SecondsInDay
-            }
-            if seconds / DateHelper.SecondsInHour > 0 {
-                resultDateString.append("\(seconds / DateHelper.SecondsInHour)h ")
-                seconds %= DateHelper.SecondsInHour
-            }
-            if seconds / DateHelper.SecondsInMinute > 0 {
-                resultDateString.append("\(seconds / DateHelper.SecondsInMinute)m ")
-                seconds %= DateHelper.SecondsInMinute
-            }
-            return resultDateString + postScript
+        var taskEntity = dashboardRepository!.getNewTaskEntity()
+        DashboardTaskMapper.mapTaskToEntity(task: task, entity: &taskEntity)
+        if let entity = dashboardRepository!.saveTask(taskEntity: taskEntity) {
+            return DashboardTaskMapper.mapTaskFromEntity(entity: entity)
         } else {
-            return "now"
+            fatalError("Insertion failed! Task with title \(task.title) couldn't be inserted.")
         }
+    }
+    
+    func updateTask(task: Task) {
+        var taskEntity = dashboardRepository!.getExistingTaskEntity(taskId: task.id!)
+        DashboardTaskMapper.mapTaskToEntity(task: task, entity: &taskEntity)
+        if dashboardRepository!.saveTask(taskEntity: taskEntity) == nil {
+            fatalError("Update failure! Task with title \(task.title) couldn't be updated.")
+        }
+    }
+    
+    func deleteTask(task: Task) {
+        let taskEntity = dashboardRepository!.getExistingTaskEntity(taskId: task.id!)
+        dashboardRepository!.deleteTask(taskEntity: taskEntity)
+    }
+    
+    func formatDueDateString(dueDate: Date) -> String {
+        return DateHelper.formatDateToRemainingTimeStringFormat(date: dueDate)
     }
     
     func getCellColorByDueDate(dueDate: Date) -> UIColor{
@@ -82,17 +91,24 @@ extension DashboardPresenter: DashboardPresenterDelegate {
         if abs(seconds) / DateHelper.SecondsInMinute > 0 {
             
             if seconds > DateHelper.SecondsInWeek {
-                backgroundCellColor = UIColor(hue: 130.0/365.0, saturation: 0.4, brightness: 1.0, alpha: 1.0)
+                backgroundCellColor = UIColor(hue: ColorHelper.toHueFloat(deg: 130),
+                                              saturation: 0.4,
+                                              brightness: ColorHelper.maxColorArgValue,
+                                              alpha: ColorHelper.maxColorArgValue)
             } else if seconds < 0 {
                 backgroundCellColor = UIColor.gray
             } else {
-                backgroundCellColor = UIColor(hue: CGFloat( Double(seconds) * (130.0/365.0) / Double(DateHelper.SecondsInWeek)),
+                print("Ex \(ColorHelper.toHueFloat(deg: 130))")
+                backgroundCellColor = UIColor(hue: (CGFloat(seconds) / CGFloat(DateHelper.SecondsInWeek)) * ColorHelper.toHueFloat(deg: 130),
                                               saturation: 0.4,
-                                              brightness: 1.0,
-                                              alpha: 1.0)
+                                              brightness: ColorHelper.maxColorArgValue,
+                                              alpha: ColorHelper.maxColorArgValue)
             }
         } else {
-            backgroundCellColor = UIColor(hue: 0, saturation: 0.4, brightness: 1.0, alpha: 1.0)
+            backgroundCellColor = UIColor(hue: ColorHelper.minColorArgValue,
+                                          saturation: 0.4,
+                                          brightness: ColorHelper.maxColorArgValue,
+                                          alpha: ColorHelper.maxColorArgValue)
         }
         return backgroundCellColor
     }

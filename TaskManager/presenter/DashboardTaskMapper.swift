@@ -8,10 +8,18 @@
 
 import Foundation
 import UIKit.UIColor
+import CoreData
 
-class DashboardTaskMapper {
+final class DashboardTaskMapper {
     
     static func mapTaskFromEntity(entity: TaskEntity) -> Task {
-        return Task(title: entity.title ?? "", desc: entity.desc ?? "", dueDate: entity.dueDate ?? Date())
+        return Task(id: entity.objectID, title: entity.title ?? "", desc: entity.desc ?? "", dueDate: entity.dueDate ?? Date())
     }
+        
+    static func mapTaskToEntity(task: Task, entity: inout TaskEntity) {
+        entity.title = task.title
+        entity.desc = task.desc
+        entity.dueDate = task.dueDate
+    }
+    
 }

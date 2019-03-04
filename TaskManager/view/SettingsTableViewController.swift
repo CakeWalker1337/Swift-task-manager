@@ -36,16 +36,16 @@ class SettingsTableViewController: UITableViewController {
         }
         cell!.textLabel?.text = self.settingNames[indexPath.row]
         cell!.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
-        let currentNoticeDesign = UserDefaults.standard.object(forKey: "TasksDesignOptionValue")
+        let currentNoticeDesign = ConfigHelper.getInstance().getDashboardDesignOption()
         let detailLabel = cell?.detailTextLabel
-        detailLabel?.text = currentNoticeDesign as? String
+        detailLabel?.text = currentNoticeDesign.rawValue
         detailLabel?.textColor = UIColor.lightGray
         return cell!
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            let controller = self.storyboard?.instantiateViewController(withIdentifier: "NoticesDesignOptionsTableViewController") as! DashboardDesignOptionsTableViewController
+            let controller = self.storyboard?.instantiateViewController(withIdentifier: "DashboardDesignOptionsTableViewController") as! DashboardDesignOptionsTableViewController
             controller.optionsDelegate = self
             self.navigationController?.pushViewController(controller, animated: true)
         }
@@ -58,8 +58,8 @@ class SettingsTableViewController: UITableViewController {
 }
 extension SettingsTableViewController: DashboardDesignOptionsTableViewDelegate {
     func onPushingResult(indexPath: IndexPath) {
-        let chosenOption = DashboardDesignOptions.allCases[indexPath.row].rawValue
-        UserDefaults.standard.set(chosenOption, forKey: "TasksDesignOptionValue")
-        settingsTableView.cellForRow(at: IndexPath(row: 0, section: 0))?.detailTextLabel?.text = chosenOption
+        let chosenOption = DashboardDesignOptions.allCases[indexPath.row]
+        ConfigHelper.getInstance().setDashboardDesignOption(option: chosenOption)
+        settingsTableView.cellForRow(at: IndexPath(row: 0, section: 0))?.detailTextLabel?.text = chosenOption.rawValue
     }
 }

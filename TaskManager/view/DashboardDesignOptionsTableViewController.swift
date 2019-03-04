@@ -37,7 +37,6 @@ class DashboardDesignOptionsTableViewController: UITableViewController {
         self.optionsDelegate?.onPushingResult(indexPath: indexPath)
         self.navigationController?.popViewController(animated: true)
     }
-
 }
 
 protocol DashboardDesignOptionsTableViewDelegate {

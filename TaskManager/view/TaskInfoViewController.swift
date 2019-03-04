@@ -14,16 +14,16 @@ import UIKit
 class TaskInfoViewController: UIViewController {
 
     enum WorkMode {
-        case CreateTask
-        case EditTask
+        case createTask, editTask
     }
     
     ///View element outlets
     @IBOutlet private weak var nameTextField: UITextField!
     @IBOutlet private weak var descriptionTextField: UITextField!
     @IBOutlet private weak var dueDatePicker: UIDatePicker!
-    var task: TaskEntity? = nil
-    var workMode = WorkMode.CreateTask
+    var task: Task? = nil
+    private var rowPath: IndexPath?
+    var workMode = WorkMode.createTask
     
     /// Delegate object of createTaskAlertView
     weak var delegate: TaskInfoViewControllerDelegate?
@@ -36,16 +36,18 @@ class TaskInfoViewController: UIViewController {
         nameTextField.delegate = self
         descriptionTextField.delegate = self
         if task != nil {
-            initFields()
-            workMode = WorkMode.EditTask
+            nameTextField.text = task!.title
+            descriptionTextField.text = task!.desc
+            dueDatePicker.date = task!.dueDate
         }
     }
     
-    func initFields(){
-        nameTextField.text = task?.title
-        descriptionTextField.text = task?.desc
-        dueDatePicker.date = task?.dueDate ?? Date()
+    func setInitData(rowPath: IndexPath, task: Task){
+        self.rowPath = rowPath
+        self.task = task
+        workMode = WorkMode.editTask
     }
+    
     /// CancelButton click event callback
     @IBAction func cancelButtonDidClick(_ sender: Any) {
         nameTextField.resignFirstResponder()
@@ -54,11 +56,18 @@ class TaskInfoViewController: UIViewController {
     /// CreateButton click event callback
     @IBAction func createButtonDidClick(_ sender: Any) {
         nameTextField.resignFirstResponder()
-        let newTask = TaskEntity()
-        newTask.title = nameTextField.text ?? ""
-        newTask.desc = descriptionTextField.text ?? ""
-        newTask.dueDate = dueDatePicker.date
-        delegate!.createTaskAlertViewControllerDidClickCreateTask(self, task: newTask)
+        var resultTask: Task
+        switch workMode {
+        case .createTask:
+            resultTask = Task(id: nil, title: nameTextField.text ?? "", desc: descriptionTextField.text ?? "", dueDate: dueDatePicker.date)
+        case .editTask:
+            task?.title = nameTextField.text ?? ""
+            task?.desc = descriptionTextField.text ?? ""
+            task?.dueDate = dueDatePicker.date
+            resultTask = task!
+        }
+        delegate!.createTaskAlertViewControllerDidClickCreateTask(self, task: resultTask, rowPath: rowPath)
+        
         self.navigationController?.popViewController(animated: true)
         self.dismiss(animated: true, completion: nil)
     }
@@ -80,6 +89,6 @@ protocol TaskInfoViewControllerDelegate: class {
     
     /// Callback-method for "create button clicked" event.
     /// - Parameter task: Task object created within data from alertdialog fields.
-    func createTaskAlertViewControllerDidClickCreateTask(_ controller: TaskInfoViewController, task: TaskEntity)
+    func createTaskAlertViewControllerDidClickCreateTask(_ controller: TaskInfoViewController, task: Task, rowPath: IndexPath?)
     
 }

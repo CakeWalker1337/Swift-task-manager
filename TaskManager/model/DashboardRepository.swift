@@ -11,7 +11,11 @@ import CoreData
 
 
 protocol DashboardRepositoryDelegate {
-    func fetchTasksFromDB() -> [TaskEntity]
+    func fetchTasks() -> [TaskEntity]
+    func saveTask(taskEntity: TaskEntity) -> TaskEntity?
+    func deleteTask(taskEntity: TaskEntity)
+    func getNewTaskEntity() -> TaskEntity
+    func getExistingTaskEntity(taskId: NSManagedObjectID) -> TaskEntity
 }
 
 class DashboardRepository {
@@ -26,23 +30,9 @@ class DashboardRepository {
 }
 extension DashboardRepository: DashboardRepositoryDelegate {
     
-    func fetchTasksFromDB() -> [TaskEntity] {
+    func fetchTasks() -> [TaskEntity] {
         do {
-            var fetchedResults = try context!.fetch(NSFetchRequest(entityName:"Task")) as [TaskEntity]
-            fetchedResults.sort(by: {(task1: TaskEntity, task2: TaskEntity) -> Bool in
-                let now = Date()
-                //red task is a task which due date has gone
-                let isTask1Red = task1.dueDate!.compare(now) == .orderedAscending
-                let isTask2Red = task2.dueDate!.compare(now) == .orderedAscending
-                // effective state checking
-                if isTask1Red && isTask2Red {
-                    return task1.dueDate!.compare(task2.dueDate!) == .orderedDescending
-                }
-                else if !isTask1Red && !isTask2Red {
-                    return task1.dueDate!.compare(task2.dueDate!) == .orderedAscending
-                }
-                return !isTask1Red
-            })
+            let fetchedResults = try context!.fetch(NSFetchRequest(entityName: "TaskEntity")) as [TaskEntity]
             return fetchedResults
         } catch {
             print("Failed saving")
@@ -50,35 +40,34 @@ extension DashboardRepository: DashboardRepositoryDelegate {
         }
     }
     
-    func insertTask(task: TaskEntity) -> Bool {
-        let taskEntity = NSEntityDescription.entity(forEntityName: "Task", in: context!)
-        let operatedTask = NSManagedObject(entity: taskEntity!, insertInto: context!)
-        setTaskValuesIntoManagedObject(task: task, object: operatedTask)
+    func getNewTaskEntity() -> TaskEntity {
+        let taskEntityBase = NSEntityDescription.entity(forEntityName: "TaskEntity", in: context!)
+        let operatedTask = NSManagedObject(entity: taskEntityBase!, insertInto: context!) as! TaskEntity
+        return operatedTask
+    }
+    
+    func getExistingTaskEntity(taskId: NSManagedObjectID) -> TaskEntity{
         do {
-            try context!.save()
-            print("Successfully saved.")
-            return true
+            let taskEntity = try context!.existingObject(with: taskId) as! TaskEntity
+            return taskEntity
         } catch {
-            print("Failed saving. \(error)")
-            return false
+            fatalError("Impossible to get existing task by id \(taskId)")
         }
     }
     
-    func deleteTask(task: TaskEntity) {
-        self.context?.delete(task)
+    func saveTask(taskEntity: TaskEntity) -> TaskEntity? {
+        do {
+            try context!.save()
+            print("Successfully saved.")
+            return taskEntity
+        } catch {
+            fatalError("Failed saving. \(error)")
+        }
+    }
+    
+    func deleteTask(taskEntity: TaskEntity) {
+        self.context?.delete(taskEntity)
         print("Successfully deleted.")
-    }
-    
-    func updateTask(task: TaskEntity) -> Bool {
-        setTaskValuesIntoManagedObject(task: task, object: task)
-        do {
-            try context!.save()
-            print("Successfully saved.")
-            return true
-        } catch {
-            print("Failed saving. \(error)")
-            return false
-        }
     }
     
     private func setTaskValuesIntoManagedObject(task: TaskEntity, object: NSManagedObject) {

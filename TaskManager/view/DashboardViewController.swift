@@ -28,7 +28,7 @@ class DashboardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         dashboardPresenter = DashboardPresenter(dashboardDelegate: self)
-        data = dashboardPresenter!.fetchTasksFromDB()
+        data = dashboardPresenter!.fetchTasks()
         dashboardTableView.dataSource = self
         dashboardTableView.delegate = self
         dashboardCollectionView.dataSource = self
@@ -37,21 +37,25 @@ class DashboardViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let currentNoticeDesignValue = UserDefaults.standard.object(forKey: "TasksDesignOptionValue") as? String ?? "Table"
-        print(currentNoticeDesignValue)
-        let designOption = DashboardDesignOptions.init(rawValue: currentNoticeDesignValue)
-        if designOption == DashboardDesignOptions.Cards {
-            dashboardCollectionView.isHidden = false
-            dashboardTableView.isHidden = true
-        }
-        else if designOption == DashboardDesignOptions.Table {
-            dashboardCollectionView.isHidden = true
+        super.viewDidAppear(animated)
+        
+        dashboardCollectionView.isHidden = true
+        dashboardTableView.isHidden = true
+        let designOption = ConfigHelper.getInstance().getDashboardDesignOption()
+        switch designOption {
+        case .table:
             dashboardTableView.isHidden = false
+        case .cards:
+            dashboardCollectionView.isHidden = false
+        default:
+            //this one can be useful for adding a new option
+            print("Unexpected design option!")
         }
+        
     }
     
     @IBAction private func createTaskButtonDidClick(_ sender: Any) {
-        let taskViewController = self.storyboard?.instantiateViewController(withIdentifier: "TaskViewController") as! TaskInfoViewController
+        let taskViewController = self.storyboard?.instantiateViewController(withIdentifier: "TaskInfoViewController") as! TaskInfoViewController
         taskViewController.delegate = self
         self.navigationController?.pushViewController(taskViewController, animated: true)
     }
@@ -59,6 +63,12 @@ class DashboardViewController: UIViewController {
     func updateTaskContainers(){
         dashboardTableView.reloadData()
         dashboardCollectionView.reloadData()
+    }
+    
+    func updateTaskContainers(at path: IndexPath){
+        let updatedRows = [path]
+        dashboardTableView.reloadRows(at: updatedRows, with: UITableView.RowAnimation.fade)
+        dashboardCollectionView.reloadItems(at: updatedRows)
     }
 }
 
@@ -70,13 +80,17 @@ extension DashboardViewController: DashboardViewControllerDelegate {
 
 extension DashboardViewController: TaskInfoViewControllerDelegate{
     
-    func createTaskAlertViewControllerDidClickCreateTask(_ controller: TaskInfoViewController, task: TaskEntity) {
-        if controller.workMode == TaskInfoViewController.WorkMode.CreateTask {
+    func createTaskAlertViewControllerDidClickCreateTask(_ controller: TaskInfoViewController, task: Task, rowPath: IndexPath?) {
+        if controller.workMode == TaskInfoViewController.WorkMode.createTask {
+            let newTask = dashboardPresenter!.insertTask(task: task)
+            data.append(newTask)
+            self.dashboardPresenter?.sortTasks(tasks: &data)
+            self.updateTaskContainers()
             
-            print("Attempt to create Task")
         }
-        else if controller.workMode == TaskInfoViewController.WorkMode.EditTask {
-            print("Attempt to edit Task")
+        else if controller.workMode == TaskInfoViewController.WorkMode.editTask {
+            self.data[rowPath!.row] = task
+            self.updateTaskContainers(at: rowPath!)
         }
     }
 }
@@ -112,17 +126,17 @@ extension DashboardViewController: UITableViewDelegate {
     {
         let editAction = UIContextualAction(style: .normal, title:  "Edit", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             print("Edit ...")
-            let taskCell = tableView.cellForRow(at: indexPath) as! TaskTableViewCell
-            let taskViewController = self.storyboard?.instantiateViewController(withIdentifier: "TaskViewController") as! TaskInfoViewController
+            let taskViewController = self.storyboard?.instantiateViewController(withIdentifier: "TaskInfoViewController") as! TaskInfoViewController
             taskViewController.delegate = self
-//            taskViewController.task = taskCell.task
-            
+            taskViewController.setInitData(rowPath: indexPath, task: self.data[indexPath.row])
             self.navigationController?.pushViewController(taskViewController, animated: true)
+            success(true)
         })
         editAction.backgroundColor = .blue
         
         let deleteAction = UIContextualAction(style: .normal, title:  "Delete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             print("Delete ...")
+            self.dashboardPresenter!.deleteTask(task: self.data[indexPath.row])
             self.data.remove(at: indexPath.row)
             self.dashboardTableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.fade)
             self.dashboardCollectionView.deleteItems(at: [indexPath])
@@ -140,7 +154,11 @@ extension DashboardViewController: UICollectionViewDataSource{
         
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: taskCollectionCellIdentifier, for: indexPath) as! TaskCardViewCell
-//        cell.task = data[indexPath.row]
+        let task = data[indexPath.row]
+        cell.title = task.title
+        cell.desc = task.desc
+        cell.dueDate = dashboardPresenter?.formatDueDateString(dueDate: task.dueDate)
+        cell.cardView.backgroundColor = dashboardPresenter?.getCellColorByDueDate(dueDate: task.dueDate)
         print("Creating collection cell")
         return cell
     }

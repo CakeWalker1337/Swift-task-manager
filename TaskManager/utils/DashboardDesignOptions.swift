@@ -9,6 +9,11 @@
 import Foundation
 
 public enum DashboardDesignOptions : String, CaseIterable {
-    case Table = "Table"
-    case Cards = "Cards"
+    case table = "Table"
+    case cards = "Cards"
+}
+extension DashboardDesignOptions {
+    init(rawOption: String?) {
+        self = DashboardDesignOptions(rawValue: rawOption ?? "") ?? .table
+    }
 }
