@@ -42,6 +42,7 @@ class TaskInfoViewController: UIViewController {
         }
     }
     
+    /// Init function for workmode "Edit"
     func setInitData(rowPath: IndexPath, task: Task){
         self.rowPath = rowPath
         self.task = task

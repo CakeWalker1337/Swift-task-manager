@@ -7,14 +7,15 @@
 //
 
 import UIKit
+import Foundation
 import CoreData
 
-
+/// Delegate connects this one view to the presenter
 protocol DashboardViewControllerDelegate {
     func getManagedObjectContext() -> NSManagedObjectContext
 }
 
-
+/// The main view controller manages two main data containers
 class DashboardViewController: UIViewController {
     
     var dashboardPresenter: DashboardPresenterDelegate?
@@ -32,8 +33,6 @@ class DashboardViewController: UIViewController {
         dashboardTableView.dataSource = self
         dashboardTableView.delegate = self
         dashboardCollectionView.dataSource = self
-        
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -60,18 +59,55 @@ class DashboardViewController: UIViewController {
         self.navigationController?.pushViewController(taskViewController, animated: true)
     }
     
+    
+    /// The function for updating data inside containers
     func updateTaskContainers(){
         dashboardTableView.reloadData()
         dashboardCollectionView.reloadData()
     }
     
-    func updateTaskContainers(at path: IndexPath){
-        let updatedRows = [path]
-        dashboardTableView.reloadRows(at: updatedRows, with: UITableView.RowAnimation.fade)
-        dashboardCollectionView.reloadItems(at: updatedRows)
+    
+    @IBAction func moreButtonDidClick(_ sender: Any) {
+        let button = sender as! UIButton
+            
+        let card = (button.superview as! CardView)
+        let cell = card.superview!.superview as! TaskCardViewCell
+        let indexPath = (cell.superview as! UICollectionView).indexPath(for: cell)
+        
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+        }
+        alertController.addAction(cancelAction)
+        
+        let editAction = UIAlertAction(title: "Edit", style: .default) { (action) in
+            self.requestTaskEditing(indexPath: indexPath!)
+        }
+        alertController.addAction(editAction)
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
+            self.requestTaskRemoval(indexPath: indexPath!)
+        }
+        alertController.addAction(deleteAction)
+        
+        self.present(alertController, animated: true)
     }
+    
+    func requestTaskRemoval(indexPath: IndexPath) {
+        self.dashboardPresenter!.deleteTask(task: self.data[indexPath.row])
+        self.data.remove(at: indexPath.row)
+        self.dashboardTableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.fade)
+        self.dashboardCollectionView.deleteItems(at: [indexPath])
+    }
+    
+    func requestTaskEditing(indexPath: IndexPath) {
+        let taskViewController = self.storyboard?.instantiateViewController(withIdentifier: "TaskInfoViewController") as! TaskInfoViewController
+        taskViewController.delegate = self
+        taskViewController.setInitData(rowPath: indexPath, task: self.data[indexPath.row])
+        self.navigationController?.pushViewController(taskViewController, animated: true)
+    }
+    
 }
-
 extension DashboardViewController: DashboardViewControllerDelegate {
     func getManagedObjectContext() -> NSManagedObjectContext {
         return (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -84,14 +120,14 @@ extension DashboardViewController: TaskInfoViewControllerDelegate{
         if controller.workMode == TaskInfoViewController.WorkMode.createTask {
             let newTask = dashboardPresenter!.insertTask(task: task)
             data.append(newTask)
-            self.dashboardPresenter?.sortTasks(tasks: &data)
-            self.updateTaskContainers()
             
         }
         else if controller.workMode == TaskInfoViewController.WorkMode.editTask {
             self.data[rowPath!.row] = task
-            self.updateTaskContainers(at: rowPath!)
+            self.dashboardPresenter!.updateTask(task: task)
         }
+        self.dashboardPresenter?.sortTasks(tasks: &data)
+        self.updateTaskContainers()
     }
 }
 extension DashboardViewController: UITableViewDataSource{
@@ -102,7 +138,6 @@ extension DashboardViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: taskTableCellIdentifier, for: indexPath) as! TaskTableViewCell
-        print("Creating table cell")
         let task = data[indexPath.row]
         cell.title = task.title
         cell.desc = task.desc
@@ -125,24 +160,22 @@ extension DashboardViewController: UITableViewDelegate {
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
     {
         let editAction = UIContextualAction(style: .normal, title:  "Edit", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            print("Edit ...")
-            let taskViewController = self.storyboard?.instantiateViewController(withIdentifier: "TaskInfoViewController") as! TaskInfoViewController
-            taskViewController.delegate = self
-            taskViewController.setInitData(rowPath: indexPath, task: self.data[indexPath.row])
-            self.navigationController?.pushViewController(taskViewController, animated: true)
+            self.requestTaskEditing(indexPath: indexPath)
             success(true)
         })
-        editAction.backgroundColor = .blue
+        editAction.backgroundColor = UIColor(hue: ColorHelper.toHueFloat(deg: 220),
+                                             saturation: 0.7,
+                                             brightness: ColorHelper.maxColorArgValue,
+                                             alpha: ColorHelper.maxColorArgValue)
         
         let deleteAction = UIContextualAction(style: .normal, title:  "Delete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            print("Delete ...")
-            self.dashboardPresenter!.deleteTask(task: self.data[indexPath.row])
-            self.data.remove(at: indexPath.row)
-            self.dashboardTableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.fade)
-            self.dashboardCollectionView.deleteItems(at: [indexPath])
+            self.requestTaskRemoval(indexPath: indexPath)
             success(true)
         })
-        deleteAction.backgroundColor = .red
+        deleteAction.backgroundColor = UIColor(hue: ColorHelper.minColorArgValue,
+                                               saturation: 0.7,
+                                               brightness: ColorHelper.maxColorArgValue,
+                                               alpha: ColorHelper.maxColorArgValue)
         return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
     }
     
@@ -159,7 +192,6 @@ extension DashboardViewController: UICollectionViewDataSource{
         cell.desc = task.desc
         cell.dueDate = dashboardPresenter?.formatDueDateString(dueDate: task.dueDate)
         cell.cardView.backgroundColor = dashboardPresenter?.getCellColorByDueDate(dueDate: task.dueDate)
-        print("Creating collection cell")
         return cell
     }
     

@@ -33,12 +33,16 @@ class DashboardPresenter {
 }
 
 extension DashboardPresenter: DashboardPresenterDelegate {
+    
+    /// Fetches all tasks from the DB
     func fetchTasks() -> [Task] {
         var tasks = dashboardRepository!.fetchTasks().map({DashboardTaskMapper.mapTaskFromEntity(entity: $0)})
         sortTasks(tasks: &tasks)
         return tasks
     }
     
+    /// Sorts task list by custom format: tasks which need to be done - first (ascending),
+    /// tasks which have done overpast - last (ascending by recent)
     func sortTasks(tasks: inout [Task]) {
         tasks.sort(by: {(task1: Task, task2: Task) -> Bool in
             let now = Date()
@@ -56,6 +60,7 @@ extension DashboardPresenter: DashboardPresenterDelegate {
         })
     }
     
+    /// Creates a new task object inside the DB
     func insertTask(task: Task) -> Task {
         
         var taskEntity = dashboardRepository!.getNewTaskEntity()
@@ -67,6 +72,7 @@ extension DashboardPresenter: DashboardPresenterDelegate {
         }
     }
     
+    /// Updates current task in the DB
     func updateTask(task: Task) {
         var taskEntity = dashboardRepository!.getExistingTaskEntity(taskId: task.id!)
         DashboardTaskMapper.mapTaskToEntity(task: task, entity: &taskEntity)
@@ -75,15 +81,18 @@ extension DashboardPresenter: DashboardPresenterDelegate {
         }
     }
     
+    /// Removes task from the DB
     func deleteTask(task: Task) {
         let taskEntity = dashboardRepository!.getExistingTaskEntity(taskId: task.id!)
         dashboardRepository!.deleteTask(taskEntity: taskEntity)
     }
     
+    /// Returns due date in a "left/ago" format
     func formatDueDateString(dueDate: Date) -> String {
         return DateHelper.formatDateToRemainingTimeStringFormat(date: dueDate)
     }
     
+    /// Returns the color of cell by due date.
     func getCellColorByDueDate(dueDate: Date) -> UIColor{
         var backgroundCellColor: UIColor
         let seconds = Int(dueDate.timeIntervalSince(Date()))
@@ -98,7 +107,6 @@ extension DashboardPresenter: DashboardPresenterDelegate {
             } else if seconds < 0 {
                 backgroundCellColor = UIColor.gray
             } else {
-                print("Ex \(ColorHelper.toHueFloat(deg: 130))")
                 backgroundCellColor = UIColor(hue: (CGFloat(seconds) / CGFloat(DateHelper.SecondsInWeek)) * ColorHelper.toHueFloat(deg: 130),
                                               saturation: 0.4,
                                               brightness: ColorHelper.maxColorArgValue,

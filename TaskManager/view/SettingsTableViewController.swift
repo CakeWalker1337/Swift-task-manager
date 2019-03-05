@@ -29,10 +29,6 @@ class SettingsTableViewController: UITableViewController {
         var cell = tableView.dequeueReusableCell(withIdentifier: self.settingsCellIdentifier)
         if cell == nil {
             cell = UITableViewCell(style: UITableViewCell.CellStyle.value2, reuseIdentifier: settingsCellIdentifier)
-            print("Creating new setting cell")
-        }
-        else {
-            print("Creating settings cell")
         }
         cell!.textLabel?.text = self.settingNames[indexPath.row]
         cell!.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
@@ -57,6 +53,8 @@ class SettingsTableViewController: UITableViewController {
 
 }
 extension SettingsTableViewController: DashboardDesignOptionsTableViewDelegate {
+    
+    /// stores the result of design option changing to the UserDefaults.
     func onPushingResult(indexPath: IndexPath) {
         let chosenOption = DashboardDesignOptions.allCases[indexPath.row]
         ConfigHelper.getInstance().setDashboardDesignOption(option: chosenOption)

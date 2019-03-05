@@ -10,7 +10,6 @@
 		CE21B681220EB905002F305C /* data.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE21B680220EB905002F305C /* data.plist */; };
 		CE3260A2222CC2D000344823 /* ColorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3260A1222CC2D000344823 /* ColorHelper.swift */; };
 		CE3260A4222D27DC00344823 /* ConfigHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3260A3222D27DC00344823 /* ConfigHelper.swift */; };
-		CE3260A8222D360700344823 /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = CE3260A7222D360700344823 /* download.png */; };
 		CE428D41221FC6110092BC32 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE428D40221FC6110092BC32 /* DateHelper.swift */; };
 		CE4D25FF220D238F0078D2F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D25FE220D238F0078D2F2 /* AppDelegate.swift */; };
 		CE4D2601220D238F0078D2F2 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D2600220D238F0078D2F2 /* DashboardViewController.swift */; };
@@ -31,6 +30,7 @@
 		CEBEBE092223C1F000964F75 /* DashboardDesignOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBEBE082223C1F000964F75 /* DashboardDesignOptionsTableViewController.swift */; };
 		CEBEBE0B2223E47600964F75 /* DashboardDesignOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBEBE0A2223E47600964F75 /* DashboardDesignOptions.swift */; };
 		CED41552220D50A300BB140E /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED41551220D50A300BB140E /* TaskTableViewCell.swift */; };
+		CEFD90D1222E069D001A23C2 /* more-512.png in Resources */ = {isa = PBXBuildFile; fileRef = CEFD90D0222E069D001A23C2 /* more-512.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +54,6 @@
 		CE21B680220EB905002F305C /* data.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = data.plist; sourceTree = "<group>"; };
 		CE3260A1222CC2D000344823 /* ColorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHelper.swift; sourceTree = "<group>"; };
 		CE3260A3222D27DC00344823 /* ConfigHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigHelper.swift; sourceTree = "<group>"; };
-		CE3260A7222D360700344823 /* download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = download.png; path = ../../../../Downloads/download.png; sourceTree = "<group>"; };
 		CE428D40221FC6110092BC32 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		CE4D25FB220D238F0078D2F2 /* TaskManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4D25FE220D238F0078D2F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +80,7 @@
 		CEBEBE082223C1F000964F75 /* DashboardDesignOptionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDesignOptionsTableViewController.swift; sourceTree = "<group>"; };
 		CEBEBE0A2223E47600964F75 /* DashboardDesignOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDesignOptions.swift; sourceTree = "<group>"; };
 		CED41551220D50A300BB140E /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
+		CEFD90D0222E069D001A23C2 /* more-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "more-512.png"; path = "../../../../Downloads/more-512.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,7 +153,7 @@
 				CE4D260D220D23910078D2F2 /* Info.plist */,
 				CE4D2605220D238F0078D2F2 /* TaskManager.xcdatamodeld */,
 				CE21B680220EB905002F305C /* data.plist */,
-				CE3260A7222D360700344823 /* download.png */,
+				CEFD90D0222E069D001A23C2 /* more-512.png */,
 			);
 			path = TaskManager;
 			sourceTree = "<group>";
@@ -313,7 +313,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE4D260C220D23910078D2F2 /* LaunchScreen.storyboard in Resources */,
-				CE3260A8222D360700344823 /* download.png in Resources */,
+				CEFD90D1222E069D001A23C2 /* more-512.png in Resources */,
 				CE4D2609220D23910078D2F2 /* Assets.xcassets in Resources */,
 				CE21B681220EB905002F305C /* data.plist in Resources */,
 				CE4D2604220D238F0078D2F2 /* Main.storyboard in Resources */,

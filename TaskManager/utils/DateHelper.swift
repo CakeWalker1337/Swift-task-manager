@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 class DateHelper {
     
     static let SecondsInYear = 31536000
@@ -16,6 +17,7 @@ class DateHelper {
     static let SecondsInDay = 86400
     static let SecondsInHour = 3600
     static let SecondsInMinute = 60
+    
     
     class func formatDateToRemainingTimeStringFormat(date: Date) -> String {
         var seconds = Int(date.timeIntervalSince(Date()))

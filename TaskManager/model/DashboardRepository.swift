@@ -30,6 +30,7 @@ class DashboardRepository {
 }
 extension DashboardRepository: DashboardRepositoryDelegate {
     
+    /// Fetches all tasks from the DB
     func fetchTasks() -> [TaskEntity] {
         do {
             let fetchedResults = try context!.fetch(NSFetchRequest(entityName: "TaskEntity")) as [TaskEntity]
@@ -40,12 +41,14 @@ extension DashboardRepository: DashboardRepositoryDelegate {
         }
     }
     
+    /// Creates a new task entity from the database entity description
     func getNewTaskEntity() -> TaskEntity {
         let taskEntityBase = NSEntityDescription.entity(forEntityName: "TaskEntity", in: context!)
         let operatedTask = NSManagedObject(entity: taskEntityBase!, insertInto: context!) as! TaskEntity
         return operatedTask
     }
     
+    /// Fetches existing task from DB by id
     func getExistingTaskEntity(taskId: NSManagedObjectID) -> TaskEntity{
         do {
             let taskEntity = try context!.existingObject(with: taskId) as! TaskEntity
@@ -55,6 +58,7 @@ extension DashboardRepository: DashboardRepositoryDelegate {
         }
     }
     
+    /// Saves task to the DB
     func saveTask(taskEntity: TaskEntity) -> TaskEntity? {
         do {
             try context!.save()
@@ -65,6 +69,7 @@ extension DashboardRepository: DashboardRepositoryDelegate {
         }
     }
     
+    /// Removes task from the DB
     func deleteTask(taskEntity: TaskEntity) {
         self.context?.delete(taskEntity)
         print("Successfully deleted.")

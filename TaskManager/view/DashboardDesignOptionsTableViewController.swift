@@ -28,7 +28,6 @@ class DashboardDesignOptionsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.optionsCellsIdentifier, for: indexPath)
-        print("Creating settings cell")
         cell.textLabel?.text = DashboardDesignOptions.allCases[indexPath.row].rawValue
         return cell
     }
