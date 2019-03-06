@@ -32,7 +32,7 @@ class SettingsTableViewController: UITableViewController {
         }
         cell!.textLabel?.text = self.settingNames[indexPath.row]
         cell!.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
-        let currentNoticeDesign = ConfigHelper.getInstance().getDashboardDesignOption()
+        let currentNoticeDesign = Configuration.shared.dashboardDesignOption
         let detailLabel = cell?.detailTextLabel
         detailLabel?.text = currentNoticeDesign.rawValue
         detailLabel?.textColor = UIColor.lightGray
@@ -57,7 +57,7 @@ extension SettingsTableViewController: DashboardDesignOptionsTableViewDelegate {
     /// stores the result of design option changing to the UserDefaults.
     func onPushingResult(indexPath: IndexPath) {
         let chosenOption = DashboardDesignOptions.allCases[indexPath.row]
-        ConfigHelper.getInstance().setDashboardDesignOption(option: chosenOption)
+        Configuration.shared.dashboardDesignOption = chosenOption
         settingsTableView.cellForRow(at: IndexPath(row: 0, section: 0))?.detailTextLabel?.text = chosenOption.rawValue
     }
 }

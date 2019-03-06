@@ -18,7 +18,10 @@ class CardView: UIView {
     @IBInspectable var shadowColor: UIColor? = UIColor.black
     @IBInspectable var shadowOpacity: Float = 0.5
     
+    var onMoreTap: (() -> Void)?
+    
     override func layoutSubviews() {
+        super.layoutSubviews()
         layer.cornerRadius = cornerRadius
         let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
         
@@ -33,4 +36,5 @@ class CardView: UIView {
         super.init(coder: aDecoder)!
     }
 
+    
 }

@@ -40,7 +40,7 @@ class DashboardViewController: UIViewController {
         
         dashboardCollectionView.isHidden = true
         dashboardTableView.isHidden = true
-        let designOption = ConfigHelper.getInstance().getDashboardDesignOption()
+        let designOption = Configuration.shared.dashboardDesignOption
         switch designOption {
         case .table:
             dashboardTableView.isHidden = false
@@ -66,33 +66,6 @@ class DashboardViewController: UIViewController {
         dashboardCollectionView.reloadData()
     }
     
-    
-    @IBAction func moreButtonDidClick(_ sender: Any) {
-        let button = sender as! UIButton
-            
-        let card = (button.superview as! CardView)
-        let cell = card.superview!.superview as! TaskCardViewCell
-        let indexPath = (cell.superview as! UICollectionView).indexPath(for: cell)
-        
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
-        }
-        alertController.addAction(cancelAction)
-        
-        let editAction = UIAlertAction(title: "Edit", style: .default) { (action) in
-            self.requestTaskEditing(indexPath: indexPath!)
-        }
-        alertController.addAction(editAction)
-        
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
-            self.requestTaskRemoval(indexPath: indexPath!)
-        }
-        alertController.addAction(deleteAction)
-        
-        self.present(alertController, animated: true)
-    }
-    
     func requestTaskRemoval(indexPath: IndexPath) {
         self.dashboardPresenter!.deleteTask(task: self.data[indexPath.row])
         self.data.remove(at: indexPath.row)
@@ -116,7 +89,7 @@ extension DashboardViewController: DashboardViewControllerDelegate {
 
 extension DashboardViewController: TaskInfoViewControllerDelegate{
     
-    func createTaskAlertViewControllerDidClickCreateTask(_ controller: TaskInfoViewController, task: Task, rowPath: IndexPath?) {
+    func taskInfoViewController(_ controller: TaskInfoViewController, didUpdate task: Task, at rowPath: IndexPath?) {
         if controller.workMode == TaskInfoViewController.WorkMode.createTask {
             let newTask = dashboardPresenter!.insertTask(task: task)
             data.append(newTask)
@@ -192,6 +165,22 @@ extension DashboardViewController: UICollectionViewDataSource{
         cell.desc = task.desc
         cell.dueDate = dashboardPresenter?.formatDueDateString(dueDate: task.dueDate)
         cell.cardView.backgroundColor = dashboardPresenter?.getCellColorByDueDate(dueDate: task.dueDate)
+        
+        cell.onMoreTap = {
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+            }
+            alertController.addAction(cancelAction)
+            let editAction = UIAlertAction(title: "Edit", style: .default) { (action) in
+                self.requestTaskEditing(indexPath: indexPath)
+            }
+            alertController.addAction(editAction)
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
+                self.requestTaskRemoval(indexPath: indexPath)
+            }
+            alertController.addAction(deleteAction)
+            self.present(alertController, animated: true)
+        }
         return cell
     }
     

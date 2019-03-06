@@ -14,6 +14,8 @@ class TaskCardViewCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    var onMoreTap: (() -> Void)?
+    
     var title: String! {
         didSet {
             titleLabel.text = title
@@ -43,6 +45,10 @@ class TaskCardViewCell: UICollectionViewCell {
         self.titleLabel?.text = nil
         self.descLabel?.text = nil
         self.dateLabel?.text = nil
+    }
+    
+    @IBAction func moreButtonDidClick(_ sender: Any) {
+        onMoreTap?()
     }
     
 }

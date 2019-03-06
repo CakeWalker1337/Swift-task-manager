@@ -14,7 +14,7 @@ class DashboardDesignOptionsTableViewController: UITableViewController {
 
     @IBOutlet var optionsTableView: UITableView!
     private let optionsCellsIdentifier = "NoticeOptionsDesignTableViewCell"
-    var optionsDelegate: DashboardDesignOptionsTableViewDelegate?
+    weak var optionsDelegate: DashboardDesignOptionsTableViewDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +38,6 @@ class DashboardDesignOptionsTableViewController: UITableViewController {
     }
 }
 
-protocol DashboardDesignOptionsTableViewDelegate {
+protocol DashboardDesignOptionsTableViewDelegate: class {
     func onPushingResult(indexPath: IndexPath)
 }

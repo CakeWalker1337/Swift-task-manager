@@ -64,7 +64,7 @@
                                                             </constraints>
                                                             <state key="normal" image="more-512.png"/>
                                                             <connections>
-                                                                <action selector="moreButtonDidClick:" destination="EvM-2q-fxR" eventType="touchUpInside" id="GKA-Xe-gMt"/>
+                                                                <action selector="moreButtonDidClick:" destination="XIH-0R-57m" eventType="touchUpInside" id="IHt-ip-hnL"/>
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wBL-UN-aUr" userLabel="Title Label">
@@ -87,6 +87,9 @@
                                                         </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <accessibility key="accessibilityConfiguration">
+                                                        <accessibilityTraits key="traits" button="YES"/>
+                                                    </accessibility>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="hyS-OQ-bK2" secondAttribute="trailing" constant="8" id="4iR-k3-g0P"/>
                                                         <constraint firstItem="aAU-ti-4TU" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="AoF-MC-C2F" secondAttribute="bottom" constant="8" id="CEo-Zp-CJ6"/>
@@ -124,7 +127,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" restorationIdentifier="TaskTableViewCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskTableViewCell" rowHeight="112" id="W8v-jG-ed4" customClass="TaskTableViewCell" customModule="TaskManager" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="TaskTableViewCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskTableViewCell" rowHeight="112" id="W8v-jG-ed4" customClass="TaskTableViewCell" customModule="TaskManager" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="112"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="W8v-jG-ed4" id="enx-99-gTM">

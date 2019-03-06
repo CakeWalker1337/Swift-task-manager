@@ -67,7 +67,7 @@ class TaskInfoViewController: UIViewController {
             task?.dueDate = dueDatePicker.date
             resultTask = task!
         }
-        delegate!.createTaskAlertViewControllerDidClickCreateTask(self, task: resultTask, rowPath: rowPath)
+        delegate!.taskInfoViewController(self, didUpdate: resultTask, at: rowPath)
         
         self.navigationController?.popViewController(animated: true)
         self.dismiss(animated: true, completion: nil)
@@ -90,6 +90,6 @@ protocol TaskInfoViewControllerDelegate: class {
     
     /// Callback-method for "create button clicked" event.
     /// - Parameter task: Task object created within data from alertdialog fields.
-    func createTaskAlertViewControllerDidClickCreateTask(_ controller: TaskInfoViewController, task: Task, rowPath: IndexPath?)
+    func taskInfoViewController(_ controller: TaskInfoViewController, didUpdate task: Task, at rowPath: IndexPath?)
     
 }
