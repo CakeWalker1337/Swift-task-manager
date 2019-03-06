@@ -8,26 +8,27 @@
 
 import UIKit
 
-/// The class for customizing alertview
-
-
+///The view controller of the view displays task data
 class TaskInfoViewController: UIViewController {
 
+    /// The controller's work mode
+    ///
+    /// - createTask: creating task mode (task data is not required)
+    /// - editTask: editing task mode (task data is required)
     enum WorkMode {
         case createTask, editTask
     }
-    
+
     ///View element outlets
     @IBOutlet private weak var nameTextField: UITextField!
     @IBOutlet private weak var descriptionTextField: UITextField!
     @IBOutlet private weak var dueDatePicker: UIDatePicker!
-    var task: Task? = nil
+    var task: Task?
     private var rowPath: IndexPath?
     var workMode = WorkMode.createTask
-    
-    /// Delegate object of createTaskAlertView
+
     weak var delegate: TaskInfoViewControllerDelegate?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         nameTextField.becomeFirstResponder()
@@ -41,26 +42,33 @@ class TaskInfoViewController: UIViewController {
             dueDatePicker.date = task!.dueDate
         }
     }
-    
+
     /// Init function for workmode "Edit"
-    func setInitData(rowPath: IndexPath, task: Task){
+    ///
+    /// - Parameters:
+    ///   - rowPath: rowPath to the element in containter
+    ///   - task: object with data for editing
+    func setInitData(rowPath: IndexPath, task: Task) {
         self.rowPath = rowPath
         self.task = task
         workMode = WorkMode.editTask
     }
-    
+
     /// CancelButton click event callback
-    @IBAction func cancelButtonDidClick(_ sender: Any) {
+    @IBAction private func cancelButtonDidClick(_ sender: Any) {
         nameTextField.resignFirstResponder()
     }
-    
+
     /// CreateButton click event callback
-    @IBAction func createButtonDidClick(_ sender: Any) {
+    @IBAction private func createButtonDidClick(_ sender: Any) {
         nameTextField.resignFirstResponder()
         var resultTask: Task
         switch workMode {
         case .createTask:
-            resultTask = Task(id: nil, title: nameTextField.text ?? "", desc: descriptionTextField.text ?? "", dueDate: dueDatePicker.date)
+            resultTask = Task(objectId: nil,
+                              title: nameTextField.text ?? "",
+                              desc: descriptionTextField.text ?? "",
+                              dueDate: dueDatePicker.date)
         case .editTask:
             task?.title = nameTextField.text ?? ""
             task?.desc = descriptionTextField.text ?? ""
@@ -68,13 +76,14 @@ class TaskInfoViewController: UIViewController {
             resultTask = task!
         }
         delegate!.taskInfoViewController(self, didUpdate: resultTask, at: rowPath)
-        
+
         self.navigationController?.popViewController(animated: true)
         self.dismiss(animated: true, completion: nil)
     }
-    
+
 }
 extension TaskInfoViewController: UITextFieldDelegate {
+
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         if textField == nameTextField {
@@ -87,9 +96,9 @@ extension TaskInfoViewController: UITextFieldDelegate {
 /// The protocol of the AlertDialog view element.
 /// Provides callback-methods for registering clicks from the AlertDialog
 protocol TaskInfoViewControllerDelegate: class {
-    
-    /// Callback-method for "create button clicked" event.
+
+    /// Callback-method calls when this controller updates (creates) task.
     /// - Parameter task: Task object created within data from alertdialog fields.
     func taskInfoViewController(_ controller: TaskInfoViewController, didUpdate task: Task, at rowPath: IndexPath?)
-    
+
 }

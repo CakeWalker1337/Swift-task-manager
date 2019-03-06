@@ -8,7 +8,11 @@
 
 import Foundation
 
-public enum DashboardDesignOptions : String, CaseIterable {
+/// The enumeration of the design option views. "table" option is default.
+///
+/// - table: view option based on the UITableView
+/// - cards: view option based on the UICollectionView with cards
+public enum DashboardDesignOptions: String, CaseIterable {
     case table = "Table"
     case cards = "Cards"
 }

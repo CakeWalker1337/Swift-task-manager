@@ -9,40 +9,69 @@
 import Foundation
 import UIKit.UIColor
 
-protocol DashboardPresenterDelegate {
+/// The protocol to provide some operable busines-logic methods to the view layer.
+protocol DashboardPresenterDelegate: class {
+
+    /// Fetches all tasks from the DB
+    ///
+    /// - Returns: an array with fetched tasks (presentation objects)
     func fetchTasks() -> [Task]
+
+    /// Saves task to the DB
+    ///
+    /// - Parameter task: task object to save
+    /// - Returns: saved object
     func insertTask(task: Task) -> Task
+
+    /// Saves task to the DB
+    ///
+    /// - Parameter task: task object to save
     func updateTask(task: Task)
+
+    /// Sorts task list by custom format: tasks which need to be done - first
+    /// (ascending), tasks which have done overpast - last (ascending by recent)
+    ///
+    /// - Parameter tasks: an array of tasks to sort (inout)
     func sortTasks(tasks: inout [Task])
+
+    /// Removes task from the DB
+    ///
+    /// - Parameter task: task for removing
     func deleteTask(task: Task)
-    
-    func getCellColorByDueDate(dueDate: Date) -> UIColor
-    
+
+    /// Calculates the color of the cell by it's due date.
+    ///
+    /// - Parameter dueDate: date to calculate the color
+    /// - Returns: cell color object
+    func calculateCellColorByDueDate(dueDate: Date) -> UIColor
+
+    /// Formats date to the "1d 1h 1m left/ago" format
+    ///
+    /// - Parameter dueDate: date object to format
+    /// - Returns: formatted date as string value
     func formatDueDateString(dueDate: Date) -> String
 }
 
+/// The class contains some business-logic methods like sorting, formatting,
+/// providing model objects to the repository layer, etc
 class DashboardPresenter {
     var dashboardView: DashboardViewControllerDelegate?
     var dashboardRepository: DashboardRepositoryDelegate?
-    
-    public init(dashboardDelegate: DashboardViewControllerDelegate)
-    {
+
+    public init(dashboardDelegate: DashboardViewControllerDelegate) {
         self.dashboardView = dashboardDelegate
-        dashboardRepository = DashboardRepository(context: self.dashboardView!.getManagedObjectContext())
+        dashboardRepository = DashboardRepository(context: self.dashboardView!.provideManagedObjectContext())
     }
 }
 
 extension DashboardPresenter: DashboardPresenterDelegate {
-    
-    /// Fetches all tasks from the DB
+
     func fetchTasks() -> [Task] {
-        var tasks = dashboardRepository!.fetchTasks().map({DashboardTaskMapper.mapTaskFromEntity(entity: $0)})
+        var tasks = dashboardRepository!.fetchTasks().map({ DashboardTaskMapper.mapTaskFromEntity(entity: $0) })
         sortTasks(tasks: &tasks)
         return tasks
     }
-    
-    /// Sorts task list by custom format: tasks which need to be done - first (ascending),
-    /// tasks which have done overpast - last (ascending by recent)
+
     func sortTasks(tasks: inout [Task]) {
         tasks.sort(by: {(task1: Task, task2: Task) -> Bool in
             let now = Date()
@@ -52,73 +81,42 @@ extension DashboardPresenter: DashboardPresenterDelegate {
             // effective state checking
             if isTask1Red && isTask2Red {
                 return task1.dueDate.compare(task2.dueDate) == .orderedDescending
-            }
-            else if !isTask1Red && !isTask2Red {
+            } else if !isTask1Red && !isTask2Red {
                 return task1.dueDate.compare(task2.dueDate) == .orderedAscending
             }
             return !isTask1Red
         })
     }
-    
-    /// Creates a new task object inside the DB
+
     func insertTask(task: Task) -> Task {
-        
-        var taskEntity = dashboardRepository!.getNewTaskEntity()
+
+        var taskEntity = dashboardRepository!.createNewTaskEntity()
         DashboardTaskMapper.mapTaskToEntity(task: task, entity: &taskEntity)
-        if let entity = dashboardRepository!.saveTask(taskEntity: taskEntity) {
-            return DashboardTaskMapper.mapTaskFromEntity(entity: entity)
+        if let savedTask = dashboardRepository!.saveTask(taskEntity: taskEntity) {
+            return DashboardTaskMapper.mapTaskFromEntity(entity: savedTask)
         } else {
             fatalError("Insertion failed! Task with title \(task.title) couldn't be inserted.")
         }
     }
-    
-    /// Updates current task in the DB
+
     func updateTask(task: Task) {
-        var taskEntity = dashboardRepository!.getExistingTaskEntity(taskId: task.id!)
+        var taskEntity = dashboardRepository!.receiveExistingTaskEntity(taskId: task.objectId!)
         DashboardTaskMapper.mapTaskToEntity(task: task, entity: &taskEntity)
         if dashboardRepository!.saveTask(taskEntity: taskEntity) == nil {
             fatalError("Update failure! Task with title \(task.title) couldn't be updated.")
         }
     }
-    
-    /// Removes task from the DB
+
     func deleteTask(task: Task) {
-        let taskEntity = dashboardRepository!.getExistingTaskEntity(taskId: task.id!)
+        let taskEntity = dashboardRepository!.receiveExistingTaskEntity(taskId: task.objectId!)
         dashboardRepository!.deleteTask(taskEntity: taskEntity)
     }
-    
-    /// Returns due date in a "left/ago" format
+
     func formatDueDateString(dueDate: Date) -> String {
         return DateHelper.formatDateToRemainingTimeStringFormat(date: dueDate)
     }
-    
-    /// Returns the color of cell by due date.
-    func getCellColorByDueDate(dueDate: Date) -> UIColor{
-        var backgroundCellColor: UIColor
-        let seconds = Int(dueDate.timeIntervalSince(Date()))
-        
-        if abs(seconds) / DateHelper.SecondsInMinute > 0 {
-            
-            if seconds > DateHelper.SecondsInWeek {
-                backgroundCellColor = UIColor(hue: ColorHelper.toHueFloat(deg: 130),
-                                              saturation: 0.4,
-                                              brightness: ColorHelper.maxColorArgValue,
-                                              alpha: ColorHelper.maxColorArgValue)
-            } else if seconds < 0 {
-                backgroundCellColor = UIColor.gray
-            } else {
-                backgroundCellColor = UIColor(hue: (CGFloat(seconds) / CGFloat(DateHelper.SecondsInWeek)) * ColorHelper.toHueFloat(deg: 130),
-                                              saturation: 0.4,
-                                              brightness: ColorHelper.maxColorArgValue,
-                                              alpha: ColorHelper.maxColorArgValue)
-            }
-        } else {
-            backgroundCellColor = UIColor(hue: ColorHelper.minColorArgValue,
-                                          saturation: 0.4,
-                                          brightness: ColorHelper.maxColorArgValue,
-                                          alpha: ColorHelper.maxColorArgValue)
-        }
-        return backgroundCellColor
+
+    func calculateCellColorByDueDate(dueDate: Date) -> UIColor {
+        return ColorHelper.calculateCellColorByDueDate(dueDate: dueDate)
     }
 }
-

@@ -200,7 +200,7 @@
                     <connections>
                         <outlet property="dashboardCollectionView" destination="iH6-MC-xNg" id="VZW-Gg-bks"/>
                         <outlet property="dashboardTableView" destination="sf5-zZ-c2m" id="yM7-xW-HOT"/>
-                        <segue destination="d11-IJ-Xvd" kind="show" id="kla-7d-8TN"/>
+                        <segue destination="d11-IJ-Xvd" kind="show" identifier="TaskInfoViewSegue" id="kla-7d-8TN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="12R-Ba-rLg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -354,7 +354,7 @@
                     <navigationItem key="navigationItem" title="Settings" id="eX8-bM-Cls"/>
                     <connections>
                         <outlet property="settingsTableView" destination="t7Y-3M-hLo" id="CkN-mz-Rbp"/>
-                        <segue destination="QTj-nt-HvC" kind="show" identifier="SettingsTableViewController" id="b16-3R-IET"/>
+                        <segue destination="QTj-nt-HvC" kind="show" identifier="SettingsTableViewSegue" id="b16-3R-IET"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oyu-q2-FBz" userLabel="First Responder" sceneMemberID="firstResponder"/>
