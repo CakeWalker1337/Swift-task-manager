@@ -14,6 +14,11 @@
 		CE3260A2222CC2D000344823 /* ColorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3260A1222CC2D000344823 /* ColorHelper.swift */; };
 		CE3260A4222D27DC00344823 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3260A3222D27DC00344823 /* Configuration.swift */; };
 		CE428D41221FC6110092BC32 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE428D40221FC6110092BC32 /* DateHelper.swift */; };
+		CE4AEAE12230EA6B00AE6466 /* ColorHelperTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4AEAE02230EA6B00AE6466 /* ColorHelperTest.swift */; };
+		CE4AEAE32230EC6C00AE6466 /* DateHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4AEAE22230EC6C00AE6466 /* DateHelperTests.swift */; };
+		CE4AEAE52231071800AE6466 /* DashboardDisognOptionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4AEAE42231071800AE6466 /* DashboardDisognOptionsTests.swift */; };
+		CE4AEAE922310AE100AE6466 /* DashboardPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4AEAE822310AE100AE6466 /* DashboardPresenterTests.swift */; };
+		CE4AEAEB223116AA00AE6466 /* DashboardTaskMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4AEAEA223116AA00AE6466 /* DashboardTaskMapperTests.swift */; };
 		CE4D25FF220D238F0078D2F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D25FE220D238F0078D2F2 /* AppDelegate.swift */; };
 		CE4D2601220D238F0078D2F2 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D2600220D238F0078D2F2 /* DashboardViewController.swift */; };
 		CE4D2604220D238F0078D2F2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE4D2602220D238F0078D2F2 /* Main.storyboard */; };
@@ -64,6 +69,11 @@
 		CE3260A1222CC2D000344823 /* ColorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHelper.swift; sourceTree = "<group>"; };
 		CE3260A3222D27DC00344823 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		CE428D40221FC6110092BC32 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		CE4AEAE02230EA6B00AE6466 /* ColorHelperTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHelperTest.swift; sourceTree = "<group>"; };
+		CE4AEAE22230EC6C00AE6466 /* DateHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelperTests.swift; sourceTree = "<group>"; };
+		CE4AEAE42231071800AE6466 /* DashboardDisognOptionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDisognOptionsTests.swift; sourceTree = "<group>"; };
+		CE4AEAE822310AE100AE6466 /* DashboardPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardPresenterTests.swift; sourceTree = "<group>"; };
+		CE4AEAEA223116AA00AE6466 /* DashboardTaskMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTaskMapperTests.swift; sourceTree = "<group>"; };
 		CE4D25FB220D238F0078D2F2 /* TaskManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4D25FE220D238F0078D2F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE4D2600220D238F0078D2F2 /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
@@ -203,6 +213,11 @@
 			children = (
 				CE4D2616220D23910078D2F2 /* TaskManagerTests.swift */,
 				CE4D2618220D23910078D2F2 /* Info.plist */,
+				CE4AEAE02230EA6B00AE6466 /* ColorHelperTest.swift */,
+				CE4AEAE22230EC6C00AE6466 /* DateHelperTests.swift */,
+				CE4AEAE42231071800AE6466 /* DashboardDisognOptionsTests.swift */,
+				CE4AEAE822310AE100AE6466 /* DashboardPresenterTests.swift */,
+				CE4AEAEA223116AA00AE6466 /* DashboardTaskMapperTests.swift */,
 			);
 			path = TaskManagerTests;
 			sourceTree = "<group>";
@@ -496,6 +511,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE4D2617220D23910078D2F2 /* TaskManagerTests.swift in Sources */,
+				CE4AEAE52231071800AE6466 /* DashboardDisognOptionsTests.swift in Sources */,
+				CE4AEAEB223116AA00AE6466 /* DashboardTaskMapperTests.swift in Sources */,
+				CE4AEAE12230EA6B00AE6466 /* ColorHelperTest.swift in Sources */,
+				CE4AEAE922310AE100AE6466 /* DashboardPresenterTests.swift in Sources */,
+				CE4AEAE32230EC6C00AE6466 /* DateHelperTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

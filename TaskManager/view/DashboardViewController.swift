@@ -5,7 +5,6 @@
 //  Created by User on 08/02/2019.
 //  Copyright © 2019 Saritasa inc. All rights reserved.
 //
-
 import UIKit
 import Foundation
 import CoreData
@@ -74,10 +73,12 @@ class DashboardViewController: UIViewController {
     ///
     /// - Parameter indexPath: index path of the task
     func requestTaskRemoval(indexPath: IndexPath) {
-        print("Request to remove ind \(indexPath.row)")
+//        print("Request to remove ind \(indexPath.row)")
         self.dashboardPresenter!.deleteTask(task: self.data[indexPath.row])
         self.data.remove(at: indexPath.row)
         updateTaskContainers()
+//        self.dashboardTableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+//        self.dashboardCollectionView.deleteItems(at: [indexPath])
     }
 
     /// Requests for edit the task by index path
@@ -143,6 +144,8 @@ extension DashboardViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView,
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+
+//        print("Table row with index \(indexPath.row) has been swiped!")
         let editAction = UIContextualAction(style: .normal,
                                             title: "Edit",
                                             handler: { (_:UIContextualAction, _:UIView, success: (Bool) -> Void) in
@@ -184,6 +187,7 @@ extension DashboardViewController: UICollectionViewDataSource {
                 cell.cardBackgroundColor = dashboardPresenter?.calculateCellColorByDueDate(dueDate: task.dueDate)
                 print("create cell")
                 cell.onMoreTap = {
+//                    print("Card with index \(indexPath.row) has been tapped! Count: \(self.data.count)")
                     let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
                     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
                     }

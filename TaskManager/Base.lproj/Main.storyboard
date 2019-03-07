@@ -31,7 +31,7 @@
         <!--Dashboard-->
         <scene sceneID="Sr2-Sf-8ae">
             <objects>
-                <viewController restorationIdentifier="TasksDashboardViewController" storyboardIdentifier="TasksDashboardViewController" id="EvM-2q-fxR" customClass="DashboardViewController" customModule="TaskManager" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="DashboardViewController" storyboardIdentifier="DashboardViewController" id="EvM-2q-fxR" customClass="DashboardViewController" customModule="TaskManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="U1r-Ba-7Z2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

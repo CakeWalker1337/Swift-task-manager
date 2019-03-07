@@ -58,7 +58,7 @@ class DashboardPresenter {
     var dashboardView: DashboardViewControllerDelegate?
     var dashboardRepository: DashboardRepositoryDelegate?
 
-    public init(dashboardDelegate: DashboardViewControllerDelegate) {
+    public init(dashboardDelegate: DashboardViewControllerDelegate?) {
         self.dashboardView = dashboardDelegate
         dashboardRepository = DashboardRepository(context: self.dashboardView!.provideManagedObjectContext())
     }
