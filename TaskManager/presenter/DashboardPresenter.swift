@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit.UIColor
+import CoreData
 
 /// The protocol to provide some operable busines-logic methods to the view layer.
 protocol DashboardPresenterDelegate: class {
@@ -50,21 +51,32 @@ protocol DashboardPresenterDelegate: class {
     /// - Parameter dueDate: date object to format
     /// - Returns: formatted date as string value
     func formatDueDateString(dueDate: Date) -> String
+
+    func provideManagedObjectContext(context: NSManagedObjectContext)
 }
 
 /// The class contains some business-logic methods like sorting, formatting,
 /// providing model objects to the repository layer, etc
 class DashboardPresenter {
     var dashboardView: DashboardViewControllerDelegate?
-    var dashboardRepository: DashboardRepositoryDelegate?
+    var context: NSManagedObjectContext?
+    lazy var dashboardRepository: DashboardRepositoryDelegate? = {
+        if context != nil {
+            return DashboardRepository(context: context!)
+        }
+        fatalError("Attempt to initialize repository object with unprovided context.")
+    }()
 
     public init(dashboardDelegate: DashboardViewControllerDelegate?) {
         self.dashboardView = dashboardDelegate
-        dashboardRepository = DashboardRepository(context: self.dashboardView!.provideManagedObjectContext())
     }
+
 }
 
 extension DashboardPresenter: DashboardPresenterDelegate {
+    func provideManagedObjectContext(context: NSManagedObjectContext) {
+        self.context = context
+    }
 
     func fetchTasks() -> [Task] {
         var tasks = dashboardRepository!.fetchTasks().map({ DashboardTaskMapper.mapTaskFromEntity(entity: $0) })

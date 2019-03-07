@@ -34,6 +34,7 @@ class DashboardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         dashboardPresenter = DashboardPresenter(dashboardDelegate: self)
+        dashboardPresenter?.provideManagedObjectContext(context: ((UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext)!)
         data = dashboardPresenter!.fetchTasks()
         dashboardTableView.dataSource = self
         dashboardTableView.delegate = self
