@@ -25,19 +25,19 @@ class TaskCardViewCell: UICollectionViewCell {
     /// Delegate for catching click on "more" button
     var onMoreTap: (() -> Void)?
 
-    var title: String! {
+    var title: String? {
         didSet {
             titleLabel.text = title
         }
     }
 
-    var dueDate: String! {
+    var dueDate: String? {
         didSet {
             dateLabel.text = dueDate
         }
     }
 
-    var desc: String! {
+    var desc: String? {
         didSet {
             descLabel.text = desc
         }
@@ -50,9 +50,9 @@ class TaskCardViewCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.titleLabel?.text = nil
-        self.descLabel?.text = nil
-        self.dateLabel?.text = nil
+        self.title = nil
+        self.desc = nil
+        self.dueDate = nil
     }
 
     @IBAction private func moreButtonDidClick(_ sender: Any) {
