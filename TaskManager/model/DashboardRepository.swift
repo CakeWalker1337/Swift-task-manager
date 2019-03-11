@@ -11,7 +11,7 @@ import CoreData
 
 /// The delegate provides functions to the presentation layer.
 /// Contains some functions for interaction with Core Data object and methods.
-protocol DashboardRepositoryDelegate: class {
+protocol DashboardRepositoryProtocol: class {
 
     /// Fetches all tasks from the DB
     ///
@@ -46,18 +46,18 @@ protocol DashboardRepositoryDelegate: class {
 class DashboardRepository {
 
     /// The context of UIApplication. Used for the interaction with Core Data.
-    var context: NSManagedObjectContext?
+    var context: NSManagedObjectContext
 
-    public init(context: NSManagedObjectContext?) {
+    public init(context: NSManagedObjectContext) {
         self.context = context
     }
 
 }
-extension DashboardRepository: DashboardRepositoryDelegate {
+extension DashboardRepository: DashboardRepositoryProtocol {
 
     func fetchTasks() -> [TaskEntity] {
         do {
-            let fetchedResults = try context!.fetch(NSFetchRequest(entityName: "TaskEntity")) as [TaskEntity]
+            let fetchedResults = try context.fetch(NSFetchRequest(entityName: "TaskEntity")) as [TaskEntity]
             return fetchedResults
         } catch {
             print("Failed saving")
@@ -66,8 +66,8 @@ extension DashboardRepository: DashboardRepositoryDelegate {
     }
 
     func createNewTaskEntity() -> TaskEntity {
-        let taskEntityBase = NSEntityDescription.entity(forEntityName: "TaskEntity", in: context!)
-        if let operatedTask = NSManagedObject(entity: taskEntityBase!, insertInto: context!) as? TaskEntity {
+        let taskEntityBase = NSEntityDescription.entity(forEntityName: "TaskEntity", in: context)
+        if let operatedTask = NSManagedObject(entity: taskEntityBase!, insertInto: context) as? TaskEntity {
             return operatedTask
         }
         fatalError("Unable to create new NSManagedObject with type TaskEntity")
@@ -75,7 +75,7 @@ extension DashboardRepository: DashboardRepositoryDelegate {
 
     func receiveExistingTaskEntity(taskId: NSManagedObjectID) -> TaskEntity {
         do {
-            if let taskEntity = try context!.existingObject(with: taskId) as? TaskEntity {
+            if let taskEntity = try context.existingObject(with: taskId) as? TaskEntity {
                 return taskEntity
             }
             fatalError("Entity type cast error: type of received object is not convertable to TaskEntity")
@@ -92,7 +92,7 @@ extension DashboardRepository: DashboardRepositoryDelegate {
     /// Saves the context of database. May throw fatal error in failure case.
     private func saveContext() {
         do {
-            try context!.save()
+            try context.save()
             print("Context has been successfully saved.")
         } catch {
             fatalError("Failed saving. \(error)")
@@ -100,7 +100,7 @@ extension DashboardRepository: DashboardRepositoryDelegate {
     }
 
     func deleteTask(taskEntity: TaskEntity) {
-        self.context?.delete(taskEntity)
+        self.context.delete(taskEntity)
         print("Successfully deleted.")
         saveContext()
     }

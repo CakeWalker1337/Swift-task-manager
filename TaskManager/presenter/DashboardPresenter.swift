@@ -60,7 +60,7 @@ protocol DashboardPresenterDelegate: class {
 class DashboardPresenter {
     var dashboardView: DashboardViewControllerDelegate?
     var context: NSManagedObjectContext?
-    lazy var dashboardRepository: DashboardRepositoryDelegate? = {
+    lazy var dashboardRepository: DashboardRepositoryProtocol? = {
         if context != nil {
             return DashboardRepository(context: context!)
         }

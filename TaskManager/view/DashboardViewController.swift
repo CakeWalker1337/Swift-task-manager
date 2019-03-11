@@ -34,7 +34,8 @@ class DashboardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         dashboardPresenter = DashboardPresenter(dashboardDelegate: self)
-        dashboardPresenter?.provideManagedObjectContext(context: ((UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext)!)
+        let context = ((UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext)!
+        dashboardPresenter?.provideManagedObjectContext(context: context)
         data = dashboardPresenter!.fetchTasks()
         dashboardTableView.dataSource = self
         dashboardTableView.delegate = self
@@ -180,29 +181,28 @@ extension DashboardViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: taskCollectionCellIdentifier, for: indexPath)
             as? TaskCardViewCell {
-            if cell.title == nil {
-                let task = data[indexPath.row]
-                cell.title = task.title
-                cell.desc = task.desc
-                cell.dueDate = dashboardPresenter?.formatDueDateString(dueDate: task.dueDate)
-                cell.cardBackgroundColor = dashboardPresenter?.calculateCellColorByDueDate(dueDate: task.dueDate)
-                print("create cell")
-                cell.onMoreTap = {
+            let task = data[indexPath.row]
+            cell.title = task.title
+            cell.desc = task.desc
+            cell.dueDate = dashboardPresenter?.formatDueDateString(dueDate: task.dueDate)
+            cell.cardBackgroundColor = dashboardPresenter?.calculateCellColorByDueDate(dueDate: task.dueDate)
+            print("create cell")
+            cell.onMoreTap = {
 //                    print("Card with index \(indexPath.row) has been tapped! Count: \(self.data.count)")
-                    let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
-                    }
-                    alertController.addAction(cancelAction)
-                    let editAction = UIAlertAction(title: "Edit", style: .default) { (_) in
-                        self.requestTaskEditing(indexPath: indexPath)
-                    }
-                    alertController.addAction(editAction)
-                    let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
-                        self.requestTaskRemoval(indexPath: indexPath)
-                    }
-                    alertController.addAction(deleteAction)
-                    self.present(alertController, animated: true)
+                let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
                 }
+                alertController.addAction(cancelAction)
+                let editAction = UIAlertAction(title: "Edit", style: .default) { (_) in
+                    self.requestTaskEditing(indexPath: indexPath)
+                }
+                alertController.addAction(editAction)
+                let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
+                    self.requestTaskRemoval(indexPath: indexPath)
+                }
+                alertController.addAction(deleteAction)
+                self.present(alertController, animated: true)
+
             }
             return cell
 
