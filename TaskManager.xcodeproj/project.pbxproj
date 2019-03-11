@@ -29,6 +29,7 @@
 		CE4D2622220D23910078D2F2 /* TaskManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D2621220D23910078D2F2 /* TaskManagerUITests.swift */; };
 		CE4D2630220D25630078D2F2 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D262F220D25630078D2F2 /* Task.swift */; };
 		CE52F2E5222691D00044E155 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE52F2E4222691D00044E155 /* CardView.swift */; };
+		CE582B902236486D00455088 /* more-512.png in Resources */ = {isa = PBXBuildFile; fileRef = CE582B8F2236486D00455088 /* more-512.png */; };
 		CE633270221508720015A6BA /* TaskInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63326F221508720015A6BA /* TaskInfoViewController.swift */; };
 		CE6793AC222904A70063EBD3 /* DashboardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6793AB222904A70063EBD3 /* DashboardRepository.swift */; };
 		CE6793AE22291C940063EBD3 /* DashboardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6793AD22291C940063EBD3 /* DashboardPresenter.swift */; };
@@ -38,7 +39,6 @@
 		CEBEBE092223C1F000964F75 /* DashboardDesignOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBEBE082223C1F000964F75 /* DashboardDesignOptionsTableViewController.swift */; };
 		CEBEBE0B2223E47600964F75 /* DashboardDesignOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBEBE0A2223E47600964F75 /* DashboardDesignOptions.swift */; };
 		CED41552220D50A300BB140E /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED41551220D50A300BB140E /* TaskTableViewCell.swift */; };
-		CEFD90D1222E069D001A23C2 /* more-512.png in Resources */ = {isa = PBXBuildFile; fileRef = CEFD90D0222E069D001A23C2 /* more-512.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +90,7 @@
 		CE4D2623220D23910078D2F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE4D262F220D25630078D2F2 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		CE52F2E4222691D00044E155 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		CE582B8F2236486D00455088 /* more-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "more-512.png"; sourceTree = "<group>"; };
 		CE63326F221508720015A6BA /* TaskInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInfoViewController.swift; sourceTree = "<group>"; };
 		CE6793AB222904A70063EBD3 /* DashboardRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardRepository.swift; sourceTree = "<group>"; };
 		CE6793AD22291C940063EBD3 /* DashboardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardPresenter.swift; sourceTree = "<group>"; };
@@ -99,7 +100,6 @@
 		CEBEBE082223C1F000964F75 /* DashboardDesignOptionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDesignOptionsTableViewController.swift; sourceTree = "<group>"; };
 		CEBEBE0A2223E47600964F75 /* DashboardDesignOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDesignOptions.swift; sourceTree = "<group>"; };
 		CED41551220D50A300BB140E /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
-		CEFD90D0222E069D001A23C2 /* more-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "more-512.png"; path = "../../../../Downloads/more-512.png"; sourceTree = "<group>"; };
 		CF10001B8443B6F1A2767862 /* Pods-TaskManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskManager.debug.xcconfig"; path = "Target Support Files/Pods-TaskManager/Pods-TaskManager.debug.xcconfig"; sourceTree = "<group>"; };
 		E04A05EF04F1AFD09E32DD04 /* Pods_TaskManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaskManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FABB22E9BEEAAD14BF8950AF /* Pods-TaskManagerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskManagerUITests.release.xcconfig"; path = "Target Support Files/Pods-TaskManagerUITests/Pods-TaskManagerUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -201,9 +201,9 @@
 				CE4D260A220D23910078D2F2 /* LaunchScreen.storyboard */,
 				CE4D260D220D23910078D2F2 /* Info.plist */,
 				CE4D2608220D23910078D2F2 /* Assets.xcassets */,
+				CE582B8F2236486D00455088 /* more-512.png */,
 				CE4D2605220D238F0078D2F2 /* TaskManager.xcdatamodeld */,
 				CE21B680220EB905002F305C /* data.plist */,
-				CEFD90D0222E069D001A23C2 /* more-512.png */,
 			);
 			path = TaskManager;
 			sourceTree = "<group>";
@@ -372,10 +372,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE4D260C220D23910078D2F2 /* LaunchScreen.storyboard in Resources */,
-				CEFD90D1222E069D001A23C2 /* more-512.png in Resources */,
 				CE4D2609220D23910078D2F2 /* Assets.xcassets in Resources */,
 				CE21B681220EB905002F305C /* data.plist in Resources */,
 				CE4D2604220D238F0078D2F2 /* Main.storyboard in Resources */,
+				CE582B902236486D00455088 /* more-512.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
