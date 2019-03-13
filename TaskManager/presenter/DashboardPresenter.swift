@@ -27,7 +27,7 @@ protocol DashboardPresenterDelegate: class {
     /// Saves task to the DB
     ///
     /// - Parameter task: task object to save
-    func updateTask(task: Task)
+    func updateTask(task: Task) -> Task
 
     /// Sorts task list by custom format: tasks which need to be done - first
     /// (ascending), tasks which have done overpast - last (ascending by recent)
@@ -53,6 +53,7 @@ protocol DashboardPresenterDelegate: class {
     func formatDueDateString(dueDate: Date) -> String
 
     func provideManagedObjectContext(context: NSManagedObjectContext)
+
 }
 
 /// The class contains some business-logic methods like sorting, formatting,
@@ -60,7 +61,9 @@ protocol DashboardPresenterDelegate: class {
 class DashboardPresenter {
     var dashboardView: DashboardViewControllerDelegate?
     var context: NSManagedObjectContext?
-    lazy var dashboardRepository: DashboardRepositoryProtocol? = {
+    let taskManagerNotificationsService: TaskManagerNotificationsServiceProtocol = TaskManagerNotificationsService()
+
+    lazy var dashboardRepository: DashboardRepositoryProtocol = {
         if context != nil {
             return DashboardRepository(context: context!)
         }
@@ -71,6 +74,18 @@ class DashboardPresenter {
         self.dashboardView = dashboardDelegate
     }
 
+    func requestNotificationsForTask(task: Task) {
+        if !task.dueDate.timeIntervalSinceNow.isLess(than: Double(DateHelper.SecondsInMinute)) {
+
+            if !task.dueDate.timeIntervalSinceNow.isLessThanOrEqualTo(Double(DateHelper.SecondsInHour)) {
+                taskManagerNotificationsService.addTaskDateNotification(task: task,
+                                                                        timeOption: NotificationTimeOptions.forHourBeforeDate)
+            }
+            taskManagerNotificationsService.addTaskDateNotification(task: task,
+                                                                    timeOption: NotificationTimeOptions.forDate)
+        }
+    }
+
 }
 
 extension DashboardPresenter: DashboardPresenterDelegate {
@@ -79,7 +94,7 @@ extension DashboardPresenter: DashboardPresenterDelegate {
     }
 
     func fetchTasks() -> [Task] {
-        var tasks = dashboardRepository!.fetchTasks().map({ DashboardTaskMapper.mapTaskFromEntity(entity: $0) })
+        var tasks = dashboardRepository.fetchTasks().map({ DashboardTaskMapper.mapTaskFromEntity(entity: $0) })
         sortTasks(tasks: &tasks)
         return tasks
     }
@@ -102,26 +117,34 @@ extension DashboardPresenter: DashboardPresenterDelegate {
 
     func insertTask(task: Task) -> Task {
 
-        var taskEntity = dashboardRepository!.createNewTaskEntity()
+        var taskEntity = dashboardRepository.createNewTaskEntity()
         DashboardTaskMapper.mapTaskToEntity(task: task, entity: &taskEntity)
-        if let savedTask = dashboardRepository!.saveTask(taskEntity: taskEntity) {
-            return DashboardTaskMapper.mapTaskFromEntity(entity: savedTask)
+        if let savedTask = dashboardRepository.saveTask(taskEntity: taskEntity) {
+            let newTask = DashboardTaskMapper.mapTaskFromEntity(entity: savedTask)
+            requestNotificationsForTask(task: newTask)
+            return newTask
         } else {
             fatalError("Insertion failed! Task with title \(task.title) couldn't be inserted.")
         }
     }
 
-    func updateTask(task: Task) {
-        var taskEntity = dashboardRepository!.receiveExistingTaskEntity(taskId: task.objectId!)
+    func updateTask(task: Task) -> Task {
+        var taskEntity = dashboardRepository.receiveExistingTaskEntity(taskId: task.objectId!)
         DashboardTaskMapper.mapTaskToEntity(task: task, entity: &taskEntity)
-        if dashboardRepository!.saveTask(taskEntity: taskEntity) == nil {
+        if let updatedTaskEntity = dashboardRepository.saveTask(taskEntity: taskEntity) {
+            let newTask = DashboardTaskMapper.mapTaskFromEntity(entity: updatedTaskEntity)
+            taskManagerNotificationsService.removeNotificationsForTask(task: newTask)
+            requestNotificationsForTask(task: newTask)
+            return newTask
+        } else {
             fatalError("Update failure! Task with title \(task.title) couldn't be updated.")
         }
     }
 
     func deleteTask(task: Task) {
-        let taskEntity = dashboardRepository!.receiveExistingTaskEntity(taskId: task.objectId!)
-        dashboardRepository!.deleteTask(taskEntity: taskEntity)
+        let taskEntity = dashboardRepository.receiveExistingTaskEntity(taskId: task.objectId!)
+        dashboardRepository.deleteTask(taskEntity: taskEntity)
+        taskManagerNotificationsService.removeNotificationsForTask(task: task)
     }
 
     func formatDueDateString(dueDate: Date) -> String {

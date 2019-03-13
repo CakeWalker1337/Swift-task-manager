@@ -14,6 +14,7 @@
 		CE3260A2222CC2D000344823 /* ColorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3260A1222CC2D000344823 /* ColorHelper.swift */; };
 		CE3260A4222D27DC00344823 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3260A3222D27DC00344823 /* Configuration.swift */; };
 		CE428D41221FC6110092BC32 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE428D40221FC6110092BC32 /* DateHelper.swift */; };
+		CE43DD6D2237B7F300C15865 /* TaskManagerNotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE43DD6C2237B7F300C15865 /* TaskManagerNotificationsService.swift */; };
 		CE4AEAE12230EA6B00AE6466 /* ColorHelperTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4AEAE02230EA6B00AE6466 /* ColorHelperTest.swift */; };
 		CE4AEAE32230EC6C00AE6466 /* DateHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4AEAE22230EC6C00AE6466 /* DateHelperTests.swift */; };
 		CE4AEAE52231071800AE6466 /* DashboardDisognOptionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4AEAE42231071800AE6466 /* DashboardDisognOptionsTests.swift */; };
@@ -31,6 +32,7 @@
 		CE52F2E5222691D00044E155 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE52F2E4222691D00044E155 /* CardView.swift */; };
 		CE582B902236486D00455088 /* more-512.png in Resources */ = {isa = PBXBuildFile; fileRef = CE582B8F2236486D00455088 /* more-512.png */; };
 		CE633270221508720015A6BA /* TaskInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63326F221508720015A6BA /* TaskInfoViewController.swift */; };
+		CE63E59D22391DE30063FABF /* NotificationTimeOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63E59C22391DE30063FABF /* NotificationTimeOptions.swift */; };
 		CE6793AC222904A70063EBD3 /* DashboardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6793AB222904A70063EBD3 /* DashboardRepository.swift */; };
 		CE6793AE22291C940063EBD3 /* DashboardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6793AD22291C940063EBD3 /* DashboardPresenter.swift */; };
 		CE6793B0222929DF0063EBD3 /* DashboardTaskMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6793AF222929DF0063EBD3 /* DashboardTaskMapper.swift */; };
@@ -69,6 +71,7 @@
 		CE3260A1222CC2D000344823 /* ColorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHelper.swift; sourceTree = "<group>"; };
 		CE3260A3222D27DC00344823 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		CE428D40221FC6110092BC32 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		CE43DD6C2237B7F300C15865 /* TaskManagerNotificationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagerNotificationsService.swift; sourceTree = "<group>"; };
 		CE4AEAE02230EA6B00AE6466 /* ColorHelperTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHelperTest.swift; sourceTree = "<group>"; };
 		CE4AEAE22230EC6C00AE6466 /* DateHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelperTests.swift; sourceTree = "<group>"; };
 		CE4AEAE42231071800AE6466 /* DashboardDisognOptionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDisognOptionsTests.swift; sourceTree = "<group>"; };
@@ -92,6 +95,8 @@
 		CE52F2E4222691D00044E155 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		CE582B8F2236486D00455088 /* more-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "more-512.png"; sourceTree = "<group>"; };
 		CE63326F221508720015A6BA /* TaskInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInfoViewController.swift; sourceTree = "<group>"; };
+		CE63E59B22390A620063FABF /* TaskManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TaskManager.entitlements; sourceTree = "<group>"; };
+		CE63E59C22391DE30063FABF /* NotificationTimeOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTimeOptions.swift; sourceTree = "<group>"; };
 		CE6793AB222904A70063EBD3 /* DashboardRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardRepository.swift; sourceTree = "<group>"; };
 		CE6793AD22291C940063EBD3 /* DashboardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardPresenter.swift; sourceTree = "<group>"; };
 		CE6793AF222929DF0063EBD3 /* DashboardTaskMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTaskMapper.swift; sourceTree = "<group>"; };
@@ -163,6 +168,8 @@
 				CEBEBE0A2223E47600964F75 /* DashboardDesignOptions.swift */,
 				CE3260A1222CC2D000344823 /* ColorHelper.swift */,
 				CE3260A3222D27DC00344823 /* Configuration.swift */,
+				CE43DD6C2237B7F300C15865 /* TaskManagerNotificationsService.swift */,
+				CE63E59C22391DE30063FABF /* NotificationTimeOptions.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -192,6 +199,7 @@
 		CE4D25FD220D238F0078D2F2 /* TaskManager */ = {
 			isa = PBXGroup;
 			children = (
+				CE63E59B22390A620063FABF /* TaskManager.entitlements */,
 				CE428D3F221FC5F40092BC32 /* utils */,
 				CE6793AA2228EFE80063EBD3 /* presenter */,
 				CEE3CE9522165E3800C62E86 /* view */,
@@ -335,6 +343,11 @@
 				TargetAttributes = {
 					CE4D25FA220D238F0078D2F2 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					CE4D2611220D23910078D2F2 = {
 						CreatedOnToolsVersion = 10.1;
@@ -488,6 +501,7 @@
 			files = (
 				CEBEBE0B2223E47600964F75 /* DashboardDesignOptions.swift in Sources */,
 				CE633270221508720015A6BA /* TaskInfoViewController.swift in Sources */,
+				CE63E59D22391DE30063FABF /* NotificationTimeOptions.swift in Sources */,
 				CE6793B0222929DF0063EBD3 /* DashboardTaskMapper.swift in Sources */,
 				CE4D2630220D25630078D2F2 /* Task.swift in Sources */,
 				CE52F2E5222691D00044E155 /* CardView.swift in Sources */,
@@ -499,6 +513,7 @@
 				CE4D2601220D238F0078D2F2 /* DashboardViewController.swift in Sources */,
 				CE428D41221FC6110092BC32 /* DateHelper.swift in Sources */,
 				CE3260A2222CC2D000344823 /* ColorHelper.swift in Sources */,
+				CE43DD6D2237B7F300C15865 /* TaskManagerNotificationsService.swift in Sources */,
 				CE6793AC222904A70063EBD3 /* DashboardRepository.swift in Sources */,
 				CEBEBE092223C1F000964F75 /* DashboardDesignOptionsTableViewController.swift in Sources */,
 				CE4D25FF220D238F0078D2F2 /* AppDelegate.swift in Sources */,
@@ -683,6 +698,7 @@
 			baseConfigurationReference = CF10001B8443B6F1A2767862 /* Pods-TaskManager.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TaskManager/TaskManager.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 97CJYDC5AL;
 				INFOPLIST_FILE = TaskManager/Info.plist;
@@ -702,6 +718,7 @@
 			baseConfigurationReference = A804C74D1FAF301DC429B1CD /* Pods-TaskManager.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TaskManager/TaskManager.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 97CJYDC5AL;
 				INFOPLIST_FILE = TaskManager/Info.plist;

@@ -110,8 +110,7 @@ extension DashboardViewController: TaskInfoViewControllerDelegate {
             data.append(newTask)
 
         } else if controller.workMode == TaskInfoViewController.WorkMode.editTask {
-            self.data[rowPath!.row] = task
-            self.dashboardPresenter!.updateTask(task: task)
+            self.data[rowPath!.row] = self.dashboardPresenter!.updateTask(task: task)
         }
         self.dashboardPresenter?.sortTasks(tasks: &data)
         self.updateTaskContainers()

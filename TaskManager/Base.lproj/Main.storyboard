@@ -354,7 +354,6 @@
                     <navigationItem key="navigationItem" title="Settings" id="eX8-bM-Cls"/>
                     <connections>
                         <outlet property="settingsTableView" destination="t7Y-3M-hLo" id="CkN-mz-Rbp"/>
-                        <segue destination="QTj-nt-HvC" kind="show" identifier="SettingsTableViewSegue" id="b16-3R-IET"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oyu-q2-FBz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -364,6 +363,7 @@
         <!--Dashboard Design Options Table View Controller-->
         <scene sceneID="2qm-pt-26m">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="osJ-xu-VL5" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="DashboardDesignOptionsTableViewController" id="QTj-nt-HvC" customClass="DashboardDesignOptionsTableViewController" customModule="TaskManager" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="w21-vA-QGb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -389,7 +389,6 @@
                         <outlet property="optionsTableView" destination="w21-vA-QGb" id="zIC-nZ-9Ce"/>
                     </connections>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="osJ-xu-VL5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2358" y="-238"/>
         </scene>

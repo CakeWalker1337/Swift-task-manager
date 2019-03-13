@@ -24,6 +24,7 @@ class Configuration {
             return DashboardDesignOptions(rawOption: stringOption)
         }
     }
+
     private init() {
         prefs = UserDefaults.standard
     }
