@@ -30,9 +30,17 @@
 		CE4D2622220D23910078D2F2 /* TaskManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D2621220D23910078D2F2 /* TaskManagerUITests.swift */; };
 		CE4D2630220D25630078D2F2 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D262F220D25630078D2F2 /* Task.swift */; };
 		CE52F2E5222691D00044E155 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE52F2E4222691D00044E155 /* CardView.swift */; };
-		CE582B902236486D00455088 /* more-512.png in Resources */ = {isa = PBXBuildFile; fileRef = CE582B8F2236486D00455088 /* more-512.png */; };
 		CE633270221508720015A6BA /* TaskInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63326F221508720015A6BA /* TaskInfoViewController.swift */; };
 		CE63E59D22391DE30063FABF /* NotificationTimeOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63E59C22391DE30063FABF /* NotificationTimeOptions.swift */; };
+		CE63E5A7223A46800063FABF /* settings_icon_x1.png in Resources */ = {isa = PBXBuildFile; fileRef = CE63E5A4223A46800063FABF /* settings_icon_x1.png */; };
+		CE63E5A8223A46800063FABF /* settings_icon_x2.png in Resources */ = {isa = PBXBuildFile; fileRef = CE63E5A5223A46800063FABF /* settings_icon_x2.png */; };
+		CE63E5A9223A46800063FABF /* settings_icon_x3.png in Resources */ = {isa = PBXBuildFile; fileRef = CE63E5A6223A46800063FABF /* settings_icon_x3.png */; };
+		CE63E5B0223A468E0063FABF /* dashboard_icon_x2.png in Resources */ = {isa = PBXBuildFile; fileRef = CE63E5AA223A468D0063FABF /* dashboard_icon_x2.png */; };
+		CE63E5B1223A468E0063FABF /* more_icon_x1.png in Resources */ = {isa = PBXBuildFile; fileRef = CE63E5AB223A468D0063FABF /* more_icon_x1.png */; };
+		CE63E5B2223A468E0063FABF /* more_icon_x3.png in Resources */ = {isa = PBXBuildFile; fileRef = CE63E5AC223A468D0063FABF /* more_icon_x3.png */; };
+		CE63E5B3223A468E0063FABF /* dashboard_icon_x1.png in Resources */ = {isa = PBXBuildFile; fileRef = CE63E5AD223A468E0063FABF /* dashboard_icon_x1.png */; };
+		CE63E5B7223A46F30063FABF /* dashboard_icon_x3.png in Resources */ = {isa = PBXBuildFile; fileRef = CE63E5B6223A46F30063FABF /* dashboard_icon_x3.png */; };
+		CE63E5B9223A474F0063FABF /* more_icon_x2.png in Resources */ = {isa = PBXBuildFile; fileRef = CE63E5B8223A474F0063FABF /* more_icon_x2.png */; };
 		CE6793AC222904A70063EBD3 /* DashboardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6793AB222904A70063EBD3 /* DashboardRepository.swift */; };
 		CE6793AE22291C940063EBD3 /* DashboardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6793AD22291C940063EBD3 /* DashboardPresenter.swift */; };
 		CE6793B0222929DF0063EBD3 /* DashboardTaskMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6793AF222929DF0063EBD3 /* DashboardTaskMapper.swift */; };
@@ -93,10 +101,18 @@
 		CE4D2623220D23910078D2F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE4D262F220D25630078D2F2 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		CE52F2E4222691D00044E155 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
-		CE582B8F2236486D00455088 /* more-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "more-512.png"; sourceTree = "<group>"; };
 		CE63326F221508720015A6BA /* TaskInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInfoViewController.swift; sourceTree = "<group>"; };
 		CE63E59B22390A620063FABF /* TaskManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TaskManager.entitlements; sourceTree = "<group>"; };
 		CE63E59C22391DE30063FABF /* NotificationTimeOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTimeOptions.swift; sourceTree = "<group>"; };
+		CE63E5A4223A46800063FABF /* settings_icon_x1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_icon_x1.png; sourceTree = "<group>"; };
+		CE63E5A5223A46800063FABF /* settings_icon_x2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_icon_x2.png; sourceTree = "<group>"; };
+		CE63E5A6223A46800063FABF /* settings_icon_x3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_icon_x3.png; sourceTree = "<group>"; };
+		CE63E5AA223A468D0063FABF /* dashboard_icon_x2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard_icon_x2.png; sourceTree = "<group>"; };
+		CE63E5AB223A468D0063FABF /* more_icon_x1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = more_icon_x1.png; sourceTree = "<group>"; };
+		CE63E5AC223A468D0063FABF /* more_icon_x3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = more_icon_x3.png; sourceTree = "<group>"; };
+		CE63E5AD223A468E0063FABF /* dashboard_icon_x1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard_icon_x1.png; sourceTree = "<group>"; };
+		CE63E5B6223A46F30063FABF /* dashboard_icon_x3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard_icon_x3.png; sourceTree = "<group>"; };
+		CE63E5B8223A474F0063FABF /* more_icon_x2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = more_icon_x2.png; sourceTree = "<group>"; };
 		CE6793AB222904A70063EBD3 /* DashboardRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardRepository.swift; sourceTree = "<group>"; };
 		CE6793AD22291C940063EBD3 /* DashboardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardPresenter.swift; sourceTree = "<group>"; };
 		CE6793AF222929DF0063EBD3 /* DashboardTaskMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTaskMapper.swift; sourceTree = "<group>"; };
@@ -209,9 +225,17 @@
 				CE4D260A220D23910078D2F2 /* LaunchScreen.storyboard */,
 				CE4D260D220D23910078D2F2 /* Info.plist */,
 				CE4D2608220D23910078D2F2 /* Assets.xcassets */,
-				CE582B8F2236486D00455088 /* more-512.png */,
 				CE4D2605220D238F0078D2F2 /* TaskManager.xcdatamodeld */,
 				CE21B680220EB905002F305C /* data.plist */,
+				CE63E5A4223A46800063FABF /* settings_icon_x1.png */,
+				CE63E5A5223A46800063FABF /* settings_icon_x2.png */,
+				CE63E5A6223A46800063FABF /* settings_icon_x3.png */,
+				CE63E5AD223A468E0063FABF /* dashboard_icon_x1.png */,
+				CE63E5AA223A468D0063FABF /* dashboard_icon_x2.png */,
+				CE63E5B6223A46F30063FABF /* dashboard_icon_x3.png */,
+				CE63E5AB223A468D0063FABF /* more_icon_x1.png */,
+				CE63E5B8223A474F0063FABF /* more_icon_x2.png */,
+				CE63E5AC223A468D0063FABF /* more_icon_x3.png */,
 			);
 			path = TaskManager;
 			sourceTree = "<group>";
@@ -384,11 +408,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE63E5A9223A46800063FABF /* settings_icon_x3.png in Resources */,
+				CE63E5B0223A468E0063FABF /* dashboard_icon_x2.png in Resources */,
 				CE4D260C220D23910078D2F2 /* LaunchScreen.storyboard in Resources */,
+				CE63E5A8223A46800063FABF /* settings_icon_x2.png in Resources */,
+				CE63E5B7223A46F30063FABF /* dashboard_icon_x3.png in Resources */,
+				CE63E5B9223A474F0063FABF /* more_icon_x2.png in Resources */,
 				CE4D2609220D23910078D2F2 /* Assets.xcassets in Resources */,
+				CE63E5A7223A46800063FABF /* settings_icon_x1.png in Resources */,
+				CE63E5B2223A468E0063FABF /* more_icon_x3.png in Resources */,
+				CE63E5B3223A468E0063FABF /* dashboard_icon_x1.png in Resources */,
 				CE21B681220EB905002F305C /* data.plist in Resources */,
+				CE63E5B1223A468E0063FABF /* more_icon_x1.png in Resources */,
 				CE4D2604220D238F0078D2F2 /* Main.storyboard in Resources */,
-				CE582B902236486D00455088 /* more-512.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

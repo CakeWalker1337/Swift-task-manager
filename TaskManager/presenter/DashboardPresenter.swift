@@ -78,10 +78,10 @@ class DashboardPresenter {
         if !task.dueDate.timeIntervalSinceNow.isLess(than: Double(DateHelper.SecondsInMinute)) {
 
             if !task.dueDate.timeIntervalSinceNow.isLessThanOrEqualTo(Double(DateHelper.SecondsInHour)) {
-                taskManagerNotificationsService.addTaskDateNotification(task: task,
+                taskManagerNotificationsService.scheduleTaskDateNotification(task: task,
                                                                         timeOption: NotificationTimeOptions.forHourBeforeDate)
             }
-            taskManagerNotificationsService.addTaskDateNotification(task: task,
+            taskManagerNotificationsService.scheduleTaskDateNotification(task: task,
                                                                     timeOption: NotificationTimeOptions.forDate)
         }
     }

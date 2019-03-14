@@ -6,6 +6,7 @@
 //  Copyright © 2019 Saritasa inc. All rights reserved.
 //
 
+import CoreData.NSManagedObjectID
 import Foundation
 import UserNotifications
 
@@ -16,7 +17,7 @@ protocol TaskManagerNotificationsServiceProtocol {
     /// - Parameters:
     ///   - task: task for creating the request
     ///   - timeOption: TimeOption value for choosing notification mode.
-    func addTaskDateNotification(task: Task, timeOption: NotificationTimeOptions)
+    func scheduleTaskDateNotification(task: Task, timeOption: NotificationTimeOptions)
 
     /// Removes all notifications for this task.
     ///
@@ -32,7 +33,7 @@ class TaskManagerNotificationsService {
 }
 extension TaskManagerNotificationsService: TaskManagerNotificationsServiceProtocol {
 
-    func addTaskDateNotification(task: Task, timeOption: NotificationTimeOptions) {
+    func scheduleTaskDateNotification(task: Task, timeOption: NotificationTimeOptions) {
         center.getNotificationSettings(completionHandler: { (settings) in
             if settings.authorizationStatus == .authorized {
                 if settings.alertSetting == .enabled {
@@ -42,15 +43,14 @@ extension TaskManagerNotificationsService: TaskManagerNotificationsServiceProtoc
                     var triggerTimeInterval: TimeInterval
                     switch timeOption {
                     case .forHourBeforeDate:
-                        identifier = String(task.objectId.hashValue)+"_1"
                         triggerTimeInterval = task.dueDate.timeIntervalSinceNow - Double(DateHelper.SecondsInHour)
                         content.body = NSString.localizedUserNotificationString(forKey: "1 hour left", arguments: nil)
                     case .forDate:
-                        identifier = String(task.objectId.hashValue)+"_2"
                         triggerTimeInterval = task.dueDate.timeIntervalSinceNow
                         content.body = NSString.localizedUserNotificationString(forKey: "Now", arguments: nil)
 
                     }
+                    identifier = self.notificationIdentifier(for: task.objectId!, timeOption: timeOption)
                     // Configure the trigger for a 7am wakeup.
                     let trigger = UNTimeIntervalNotificationTrigger(timeInterval: triggerTimeInterval, repeats: false)
 
@@ -70,9 +70,17 @@ extension TaskManagerNotificationsService: TaskManagerNotificationsServiceProtoc
 
     }
 
+    private func notificationIdentifier(for identifier: NSManagedObjectID, timeOption: NotificationTimeOptions) -> String {
+        let uid = identifier.uriRepresentation().absoluteString
+        switch timeOption {
+        case .forHourBeforeDate: return uid + "_1"
+        case .forDate: return uid + "_2"
+        }
+    }
+
     func removeNotificationsForTask(task: Task) {
-        let taskIdHashString = String(task.objectId.hashValue)
-        center.removePendingNotificationRequests(withIdentifiers: [taskIdHashString+"_1", taskIdHashString+"_2"])
+        let uid = task.objectId!.uriRepresentation().absoluteString
+        center.removePendingNotificationRequests(withIdentifiers: [uid+"_1", uid+"_2"])
     }
 
 }

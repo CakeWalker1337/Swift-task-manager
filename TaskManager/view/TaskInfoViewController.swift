@@ -19,8 +19,9 @@ class TaskInfoViewController: UIViewController {
         case createTask, editTask
     }
 
+    @IBOutlet private weak var navItem: UINavigationItem!
     ///View element outlets
-    @IBOutlet private weak var nameTextField: UITextField!
+    @IBOutlet private weak var titleTextField: UITextField!
     @IBOutlet private weak var descriptionTextField: UITextField!
     @IBOutlet private weak var dueDatePicker: UIDatePicker!
     var task: Task?
@@ -31,13 +32,14 @@ class TaskInfoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        nameTextField.becomeFirstResponder()
-        nameTextField.returnKeyType = .next
+        dueDatePicker.minimumDate = Date()
+        titleTextField.becomeFirstResponder()
+        titleTextField.returnKeyType = .next
         descriptionTextField.returnKeyType = .done
-        nameTextField.delegate = self
+        titleTextField.delegate = self
         descriptionTextField.delegate = self
         if task != nil {
-            nameTextField.text = task!.title
+            titleTextField.text = task!.title
             descriptionTextField.text = task!.desc
             dueDatePicker.date = task!.dueDate
         }
@@ -51,34 +53,66 @@ class TaskInfoViewController: UIViewController {
     func setInitData(rowPath: IndexPath, task: Task) {
         self.rowPath = rowPath
         self.task = task
+        self.navItem.title = "Edit task"
         workMode = WorkMode.editTask
     }
 
     /// CancelButton click event callback
     @IBAction private func cancelButtonDidClick(_ sender: Any) {
-        nameTextField.resignFirstResponder()
+        titleTextField.resignFirstResponder()
     }
 
     /// CreateButton click event callback
     @IBAction private func createButtonDidClick(_ sender: Any) {
-        nameTextField.resignFirstResponder()
-        var resultTask: Task
-        switch workMode {
-        case .createTask:
-            resultTask = Task(objectId: nil,
-                              title: nameTextField.text ?? "",
-                              desc: descriptionTextField.text ?? "",
-                              dueDate: dueDatePicker.date)
-        case .editTask:
-            task?.title = nameTextField.text ?? ""
-            task?.desc = descriptionTextField.text ?? ""
-            task?.dueDate = dueDatePicker.date
-            resultTask = task!
-        }
-        delegate!.taskInfoViewController(self, didUpdate: resultTask, at: rowPath)
+        titleTextField.resignFirstResponder()
+        if checkDataValidation() {
+            var resultTask: Task
+            switch workMode {
+            case .createTask:
+                resultTask = Task(objectId: nil,
+                                  title: titleTextField.text ?? "",
+                                  desc: descriptionTextField.text ?? "",
+                                  dueDate: dueDatePicker.date)
+            case .editTask:
+                task?.title = titleTextField.text ?? ""
+                task?.desc = descriptionTextField.text ?? ""
+                task?.dueDate = dueDatePicker.date
+                resultTask = task!
+            }
+            delegate!.taskInfoViewController(self, didUpdate: resultTask, at: rowPath)
 
-        self.navigationController?.popViewController(animated: true)
-        self.dismiss(animated: true, completion: nil)
+            self.navigationController?.popViewController(animated: true)
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+
+    func checkDataValidation() -> Bool {
+        var result = true
+        if titleTextField.text == nil || (titleTextField.text?.isEmpty)! {
+            print("yes")
+            setTextFieldBackgroundColor(textField: titleTextField, isValid: false)
+            result = false
+        } else {
+            setTextFieldBackgroundColor(textField: titleTextField, isValid: true)
+        }
+        if descriptionTextField.text == nil || (descriptionTextField.text?.isEmpty)! {
+            setTextFieldBackgroundColor(textField: descriptionTextField, isValid: false)
+            result = false
+        } else {
+            setTextFieldBackgroundColor(textField: descriptionTextField, isValid: true)
+        }
+        return result
+    }
+
+    func setTextFieldBackgroundColor(textField: UITextField, isValid: Bool) {
+        if !isValid {
+            textField.backgroundColor = UIColor(hue: ColorHelper.minColorArgValue,
+                                                           saturation: 0.7,
+                                                           brightness: ColorHelper.maxColorArgValue,
+                                                           alpha: ColorHelper.maxColorArgValue)
+        } else {
+            textField.backgroundColor = UIColor.white
+        }
     }
 
 }
@@ -86,7 +120,7 @@ extension TaskInfoViewController: UITextFieldDelegate {
 
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        if textField == nameTextField {
+        if textField == titleTextField {
             descriptionTextField.becomeFirstResponder()
         }
         return true
