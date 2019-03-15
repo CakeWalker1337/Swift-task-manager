@@ -76,7 +76,12 @@ class TaskInfoViewController: UIViewController {
             case .editTask:
                 task?.title = titleTextField.text ?? ""
                 task?.desc = descriptionTextField.text ?? ""
-                task?.dueDate = dueDatePicker.date
+                let chosenDate = dueDatePicker.date
+                if chosenDate.compare(Date()).rawValue <= 0 {
+                    task?.dueDate = Date()
+                } else {
+                    task?.dueDate = chosenDate
+                }
                 resultTask = task!
             }
             delegate!.taskInfoViewController(self, didUpdate: resultTask, at: rowPath)

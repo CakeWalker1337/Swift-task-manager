@@ -26,10 +26,13 @@ class DashboardViewController: UIViewController {
     @IBOutlet private weak var dashboardTableView: UITableView!
     /// The data array for displaying tasks on the dashboard through the containers.
     private var data: [Task] = []
+    @IBOutlet private weak var navItem: UINavigationItem!
 
     private let taskTableCellIdentifier = "TaskTableViewCell"
     private let taskCollectionCellIdentifier = "TaskCardViewCell"
     private let taskInfoViewControllerIdentifier = "TaskInfoViewController"
+    private var filteredTableData = [Task]()
+    private let resultSearchController = UISearchController(searchResultsController: nil)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +43,15 @@ class DashboardViewController: UIViewController {
         dashboardTableView.dataSource = self
         dashboardTableView.delegate = self
         dashboardCollectionView.dataSource = self
+
+        resultSearchController.searchResultsUpdater = self
+        resultSearchController.obscuresBackgroundDuringPresentation = false
+        resultSearchController.searchBar.placeholder = "Search tasks"
+        resultSearchController.searchBar.delegate = self
+        navigationItem.searchController = resultSearchController
+        navigationItem.hidesSearchBarWhenScrolling = true
+        definesPresentationContext = true
+
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -116,15 +128,60 @@ extension DashboardViewController: TaskInfoViewControllerDelegate {
         self.updateTaskContainers()
     }
 }
+extension DashboardViewController: UISearchResultsUpdating {
+    /// Checks is searchbar's text empty.
+    ///
+    /// - Returns: true if empty, else false
+    func searchBarIsEmpty() -> Bool {
+        // Returns true if the text is empty or nil
+        return resultSearchController.searchBar.text?.isEmpty ?? true
+    }
+
+    /// Filter for tasklist by title of task.
+    ///
+    /// - Parameters:
+    ///   - searchText: text from searchbar
+    ///   - scope: scope
+    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+        filteredTableData = data.filter({( task: Task) -> Bool in
+            return task.title.lowercased().contains(searchText.lowercased())
+        })
+        dashboardCollectionView.reloadData()
+        dashboardTableView.reloadData()
+    }
+
+    /// Checks is takslist filtering now
+    ///
+    /// - Returns: true if filter is turned on, else false.
+    func isFiltering() -> Bool {
+        return resultSearchController.isActive && !searchBarIsEmpty()
+    }
+
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(resultSearchController.searchBar.text!)
+    }
+}
+extension DashboardViewController: UISearchBarDelegate {
+
+}
 extension DashboardViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFiltering() {
+            return self.filteredTableData.count
+        }
         return self.data.count
+
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: taskTableCellIdentifier, for: indexPath) as? TaskTableViewCell {
-            let task = data[indexPath.row]
+            var task: Task
+            if isFiltering() {
+                task = filteredTableData[indexPath.row]
+            } else {
+                task = data[indexPath.row]
+            }
             cell.title = task.title
             cell.desc = task.desc
             cell.dueDate = dashboardPresenter?.formatDueDateString(dueDate: task.dueDate)
@@ -146,7 +203,6 @@ extension DashboardViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 
-//        print("Table row with index \(indexPath.row) has been swiped!")
         let editAction = UIContextualAction(style: .normal,
                                             title: "Edit",
                                             handler: { (_:UIContextualAction, _:UIView, success: (Bool) -> Void) in
@@ -172,22 +228,31 @@ extension DashboardViewController: UITableViewDelegate {
     }
 
 }
+
 extension DashboardViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count
+        if isFiltering() {
+            return self.filteredTableData.count
+        }
+        return self.data.count
+
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: taskCollectionCellIdentifier, for: indexPath)
             as? TaskCardViewCell {
-            let task = data[indexPath.row]
+            var task: Task
+            if isFiltering() {
+                task = filteredTableData[indexPath.row]
+            } else {
+                task = data[indexPath.row]
+            }
             cell.title = task.title
             cell.desc = task.desc
             cell.dueDate = dashboardPresenter?.formatDueDateString(dueDate: task.dueDate)
             cell.cardBackgroundColor = dashboardPresenter?.calculateCellColorByDueDate(dueDate: task.dueDate)
             print("create cell")
             cell.onMoreTap = {
-//                    print("Card with index \(indexPath.row) has been tapped! Count: \(self.data.count)")
                 let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
                 let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
                 }

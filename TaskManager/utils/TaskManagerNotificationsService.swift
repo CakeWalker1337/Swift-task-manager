@@ -33,6 +33,11 @@ class TaskManagerNotificationsService {
 }
 extension TaskManagerNotificationsService: TaskManagerNotificationsServiceProtocol {
 
+    /// Creates notification for task.
+    ///
+    /// - Parameters:
+    ///   - task: task object
+    ///   - timeOption: time option points what time and message needs to add to the notification.
     func scheduleTaskDateNotification(task: Task, timeOption: NotificationTimeOptions) {
         center.getNotificationSettings(completionHandler: { (settings) in
             if settings.authorizationStatus == .authorized {
@@ -70,6 +75,12 @@ extension TaskManagerNotificationsService: TaskManagerNotificationsServiceProtoc
 
     }
 
+    /// Generates the identifier for notification.
+    ///
+    /// - Parameters:
+    ///   - identifier: Object ID from CoreData object
+    ///   - timeOption: time option: for an our before date or now
+    /// - Returns: returns the notification id for this object ID
     private func notificationIdentifier(for identifier: NSManagedObjectID, timeOption: NotificationTimeOptions) -> String {
         let uid = identifier.uriRepresentation().absoluteString
         switch timeOption {
@@ -78,6 +89,9 @@ extension TaskManagerNotificationsService: TaskManagerNotificationsServiceProtoc
         }
     }
 
+    /// Removes all notifications for task
+    ///
+    /// - Parameter task: task object
     func removeNotificationsForTask(task: Task) {
         let uid = task.objectId!.uriRepresentation().absoluteString
         center.removePendingNotificationRequests(withIdentifiers: [uid+"_1", uid+"_2"])
